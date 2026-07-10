@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect width="720" height="360" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 9 — Anatomy of a SpriteAnimationClip (sheet_brute / walk)</text>
+
+  <!-- 4 frames, 8 directions each -->
+  <g transform="translate(40,55)">
+    <text x="0" y="-6" font-size="11" fill="#444" font-weight="600">walk: 4 frames × 8 directions × 130 ms/frame, loop=true</text>
+    <g font-size="9" fill="#555">
+      <!-- frame 0 -->
+      <g transform="translate(0,10)">
+        <text x="80" y="-2" text-anchor="middle" font-weight="600" fill="#206ac7">frame 0</text>
+        <g stroke="#888">
+          <rect x="0"   y="6"  width="36" height="48" fill="#3a3530"/>
+          <rect x="38"  y="6"  width="36" height="48" fill="#3c3733"/>
+          <rect x="76"  y="6"  width="36" height="48" fill="#3a3530"/>
+          <rect x="114" y="6"  width="36" height="48" fill="#383330"/>
+          <rect x="0"   y="58" width="36" height="48" fill="#3a3530"/>
+          <rect x="38"  y="58" width="36" height="48" fill="#3c3733"/>
+          <rect x="76"  y="58" width="36" height="48" fill="#3a3530"/>
+          <rect x="114" y="58" width="36" height="48" fill="#383330"/>
+        </g>
+        <text x="0"   y="120" font-size="8">front</text>
+        <text x="38"  y="120" font-size="8">f_r</text>
+        <text x="76"  y="120" font-size="8">right</text>
+        <text x="114" y="120" font-size="8">b_r</text>
+        <text x="0"   y="130" font-size="8">back</text>
+      </g>
+      <!-- arrow -->
+      <text x="170" y="40" font-size="22" fill="#aaa">→</text>
+      <!-- frame 1 -->
+      <g transform="translate(180,10)">
+        <text x="80" y="-2" text-anchor="middle" font-weight="600" fill="#206ac7">frame 1</text>
+        <g stroke="#888">
+          <rect x="0"   y="6"  width="36" height="48" fill="#4a4540"/>
+          <rect x="38"  y="6"  width="36" height="48" fill="#4c4742"/>
+          <rect x="76"  y="6"  width="36" height="48" fill="#4a4540"/>
+          <rect x="114" y="6"  width="36" height="48" fill="#484340"/>
+          <rect x="0"   y="58" width="36" height="48" fill="#4a4540"/>
+          <rect x="38"  y="58" width="36" height="48" fill="#4c4742"/>
+          <rect x="76"  y="58" width="36" height="48" fill="#4a4540"/>
+          <rect x="114" y="58" width="36" height="48" fill="#484340"/>
+        </g>
+      </g>
+      <text x="350" y="40" font-size="22" fill="#aaa">→</text>
+      <!-- frame 2 -->
+      <g transform="translate(360,10)">
+        <text x="80" y="-2" text-anchor="middle" font-weight="600" fill="#206ac7">frame 2</text>
+        <g stroke="#888">
+          <rect x="0"   y="6"  width="36" height="48" fill="#5a5550"/>
+          <rect x="38"  y="6"  width="36" height="48" fill="#5c5752"/>
+          <rect x="76"  y="6"  width="36" height="48" fill="#5a5550"/>
+          <rect x="114" y="6"  width="36" height="48" fill="#585350"/>
+          <rect x="0"   y="58" width="36" height="48" fill="#5a5550"/>
+          <rect x="38"  y="58" width="36" height="48" fill="#5c5752"/>
+          <rect x="76"  y="58" width="36" height="48" fill="#5a5550"/>
+          <rect x="114" y="58" width="36" height="48" fill="#585350"/>
+        </g>
+      </g>
+      <text x="530" y="40" font-size="22" fill="#aaa">→</text>
+      <!-- frame 3 -->
+      <g transform="translate(540,10)">
+        <text x="80" y="-2" text-anchor="middle" font-weight="600" fill="#206ac7">frame 3</text>
+        <g stroke="#888">
+          <rect x="0"   y="6"  width="36" height="48" fill="#6a6560"/>
+          <rect x="38"  y="6"  width="36" height="48" fill="#6c6762"/>
+          <rect x="76"  y="6"  width="36" height="48" fill="#6a6560"/>
+          <rect x="114" y="6"  width="36" height="48" fill="#686360"/>
+          <rect x="0"   y="58" width="36" height="48" fill="#6a6560"/>
+          <rect x="38"  y="58" width="36" height="48" fill="#6c6762"/>
+          <rect x="76"  y="58" width="36" height="48" fill="#6a6560"/>
+          <rect x="114" y="58" width="36" height="48" fill="#686360"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- timeline -->
+  <g transform="translate(40, 210)" font-size="10" fill="#444">
+    <line x1="0" y1="0" x2="630" y2="0" stroke="#888"/>
+    <g>
+      <line x1="0"   y1="-6" x2="0"   y2="6" stroke="#888"/>
+      <line x1="157" y1="-6" x2="157" y2="6" stroke="#888"/>
+      <line x1="315" y1="-6" x2="315" y2="6" stroke="#888"/>
+      <line x1="472" y1="-6" x2="472" y2="6" stroke="#888"/>
+      <line x1="630" y1="-6" x2="630" y2="6" stroke="#888"/>
+    </g>
+    <text x="0"   y="20">0 ms</text>
+    <text x="157" y="20">130</text>
+    <text x="315" y="20">260</text>
+    <text x="472" y="20">390</text>
+    <text x="630" y="20">520 (→ wrap)</text>
+    <text x="0" y="40" font-family="ui-monospace,Consolas,monospace" font-size="10">
+      advanceAnimation(dt): frameIndex = (totalSeconds / 0.130) % 4
+    </text>
+  </g>
+
+  <!-- json snippet box -->
+  <g transform="translate(40, 280)">
+    <rect width="640" height="60" fill="#fff" stroke="#d0d4dc"/>
+    <text x="10" y="18" font-size="10" font-family="ui-monospace,Consolas,monospace" fill="#333">
+      "walk": { "frameDurationMs": 130, "loop": true,
+    </text>
+    <text x="10" y="34" font-size="10" font-family="ui-monospace,Consolas,monospace" fill="#333">
+      "frames": [ { "directions": [...8 entries...] }, { ... }, { ... }, { ... } ] }
+    </text>
+  </g>
+</svg>

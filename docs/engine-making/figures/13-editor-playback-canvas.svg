@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect width="720" height="360" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 13 — Editor Sprites tab: animation playback canvas with transport bar</text>
+
+  <!-- left: animation list -->
+  <g transform="translate(40,50)" font-size="10" fill="#222">
+    <rect width="180" height="240" rx="4" fill="#fff" stroke="#c8ccd4"/>
+    <text x="10" y="20" font-weight="600">Sprite Animations</text>
+    <g>
+      <rect x="6" y="32" width="168" height="28" fill="#fff" stroke="#e0e3ea"/>
+      <text x="14" y="50">idle  · 1 frame · 180 ms</text>
+      <rect x="6" y="64" width="168" height="28" fill="#dbe7fb" stroke="#206ac7"/>
+      <text x="14" y="82" font-weight="600">walk · 4 frames · 130 ms</text>
+      <rect x="6" y="96" width="168" height="28" fill="#fff" stroke="#e0e3ea"/>
+      <text x="14" y="114">attack · 4 frames · 110 ms</text>
+      <rect x="6" y="128" width="168" height="28" fill="#fff" stroke="#e0e3ea"/>
+      <text x="14" y="146">death · 10 frames · 120 ms · once</text>
+    </g>
+    <text x="10" y="190" font-weight="600" font-size="10">Selected direction</text>
+    <text x="10" y="206" font-size="10">front (0°)</text>
+  </g>
+
+  <!-- right: preview canvas + transport -->
+  <g transform="translate(240,50)" font-size="10" fill="#222">
+    <!-- canvas -->
+    <rect width="440" height="180" fill="#1a2030" stroke="#67718a"/>
+    <!-- sprite figure (stylised) -->
+    <g transform="translate(220,90)">
+      <ellipse cx="0" cy="0" rx="40" ry="56" fill="#5a4a40" stroke="#a08570" stroke-width="1.2"/>
+      <ellipse cx="0" cy="-44" rx="22" ry="22" fill="#806a58"/>
+      <rect x="-14" y="34" width="28" height="36" fill="#5a4a40"/>
+    </g>
+    <!-- summary chip -->
+    <g>
+      <rect x="290" y="8" width="140" height="22" fill="#202a3c" stroke="#67718a"/>
+      <text x="300" y="22" fill="#cfd5e2" font-size="10">Frame 2 / 4 · 130 ms · loop</text>
+    </g>
+    <text x="10" y="170" fill="#a4adc4" font-size="10">front · 256 px (LOD)</text>
+
+    <!-- transport bar -->
+    <g transform="translate(0,200)">
+      <rect width="220" height="32" rx="4" fill="#fff" stroke="#c8ccd4"/>
+      <g font-size="14" fill="#333">
+        <text x="20"  y="22" text-anchor="middle">|◀</text>
+        <text x="60"  y="22" text-anchor="middle">▶</text>
+        <text x="100" y="22" text-anchor="middle">❚❚</text>
+        <text x="140" y="22" text-anchor="middle">■</text>
+        <text x="180" y="22" text-anchor="middle">▶|</text>
+      </g>
+      <g font-size="9" fill="#666">
+        <text x="20"  y="46" text-anchor="middle">step −1</text>
+        <text x="60"  y="46" text-anchor="middle">play</text>
+        <text x="100" y="46" text-anchor="middle">pause</text>
+        <text x="140" y="46" text-anchor="middle">stop</text>
+        <text x="180" y="46" text-anchor="middle">step +1</text>
+      </g>
+    </g>
+    <text x="260" y="222" font-size="10" fill="#555">DispatcherTimer interval = frameDurationMs (130 ms)</text>
+    <text x="260" y="240" font-size="10" fill="#555">previews precached per (clip, direction, LOD)</text>
+  </g>
+</svg>

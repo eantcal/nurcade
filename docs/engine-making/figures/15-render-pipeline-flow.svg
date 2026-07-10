@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#444"/>
+    </marker>
+  </defs>
+  <rect width="720" height="480" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 15 — One frame: data flow through RaycastEngine::renderToFrameBuffer</text>
+
+  <g font-size="10" fill="#222">
+    <!-- inputs box -->
+    <g transform="translate(40,55)" stroke="#202632" stroke-width="0.7">
+      <rect width="160" height="100" rx="6" fill="#e8efef"/>
+      <text x="80" y="20" text-anchor="middle" font-weight="600">Inputs</text>
+      <text x="14" y="38">WorldMap (grid + blocks)</text>
+      <text x="14" y="54">Player (pos · alpha · slope)</text>
+      <text x="14" y="70">Sprites + Animations</text>
+      <text x="14" y="86">Target framebuffer size</text>
+    </g>
+
+    <!-- pipeline box -->
+    <g transform="translate(220,55)" stroke="#202632" stroke-width="0.7">
+      <rect width="290" height="380" rx="6" fill="#fafbfd"/>
+      <text x="145" y="22" text-anchor="middle" font-weight="600">renderToFrameBuffer</text>
+      <g>
+        <rect x="16" y="36"  width="260" height="34" rx="4" fill="#cfdbe9"/>
+        <text x="146" y="58" text-anchor="middle">1 · Reset 3 depth buffers</text>
+        <rect x="16" y="78"  width="260" height="34" rx="4" fill="#d4c2a1"/>
+        <text x="146" y="100" text-anchor="middle">2 · Paint horizon / sky (full frame)</text>
+        <rect x="16" y="120" width="260" height="34" rx="4" fill="#a9b4cb"/>
+        <text x="146" y="142" text-anchor="middle">3 · for ray=0..xRes  (column loop)</text>
+        <rect x="16" y="162" width="260" height="34" rx="4" fill="#bda08a"/>
+        <text x="146" y="184" text-anchor="middle">3a · cast → first solid hit</text>
+        <rect x="16" y="204" width="260" height="34" rx="4" fill="#c08e6a"/>
+        <text x="146" y="226" text-anchor="middle">3b · floor/ceiling per row</text>
+        <rect x="16" y="246" width="260" height="34" rx="4" fill="#9ec07a"/>
+        <text x="146" y="268" text-anchor="middle">3c · wall spans (block model)</text>
+        <rect x="16" y="288" width="260" height="34" rx="4" fill="#a08aba"/>
+        <text x="146" y="310" text-anchor="middle">4 · renderSprites</text>
+        <rect x="16" y="330" width="260" height="34" rx="4" fill="#e7a5b8"/>
+        <text x="146" y="352" text-anchor="middle">5 · renderTranspWall × 2 passes</text>
+      </g>
+    </g>
+
+    <!-- outputs box -->
+    <g transform="translate(540,55)" stroke="#202632" stroke-width="0.7">
+      <rect width="140" height="100" rx="6" fill="#e8efef"/>
+      <text x="70" y="20" text-anchor="middle" font-weight="600">Output</text>
+      <text x="14" y="38">FrameBuffer (BGRA)</text>
+      <text x="14" y="54">→ presenter</text>
+      <text x="14" y="70">  WinFramePresenter</text>
+      <text x="14" y="86">  (DirectDraw blit)</text>
+    </g>
+
+    <!-- arrows -->
+    <g stroke="#444" stroke-width="1.2" fill="none" marker-end="url(#ar5)">
+      <line x1="200" y1="105" x2="220" y2="105"/>
+      <line x1="510" y1="105" x2="540" y2="105"/>
+    </g>
+  </g>
+</svg>

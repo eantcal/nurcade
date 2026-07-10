@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect width="720" height="320" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 4 — Projection centre / horizon shift (look up · centred · look down)</text>
+
+  <g font-size="10" fill="#555">
+    <!-- frame 1: look up -->
+    <g transform="translate(40,50)">
+      <rect width="200" height="220" fill="#1a2030"/>
+      <line x1="0" y1="40" x2="200" y2="40" stroke="#67718a" stroke-dasharray="3,3"/>
+      <text x="6" y="35" font-size="9" fill="#a4adc4">horizon (high)</text>
+      <!-- walls grow tall from below -->
+      <rect x="10"  y="80"  width="20" height="140" fill="#8a5a3a"/>
+      <rect x="40"  y="70"  width="20" height="150" fill="#8a5a3a"/>
+      <rect x="70"  y="65"  width="20" height="155" fill="#8a5a3a"/>
+      <rect x="100" y="60"  width="20" height="160" fill="#8a5a3a"/>
+      <rect x="130" y="65"  width="20" height="155" fill="#8a5a3a"/>
+      <rect x="160" y="70"  width="20" height="150" fill="#8a5a3a"/>
+      <text x="100" y="240" text-anchor="middle">look up</text>
+    </g>
+
+    <!-- frame 2: centred -->
+    <g transform="translate(260,50)">
+      <rect width="200" height="220" fill="#1a2030"/>
+      <line x1="0" y1="110" x2="200" y2="110" stroke="#67718a" stroke-dasharray="3,3"/>
+      <text x="6" y="105" font-size="9" fill="#a4adc4">horizon (centre)</text>
+      <rect x="10"  y="60"  width="20" height="100" fill="#8a5a3a"/>
+      <rect x="40"  y="55"  width="20" height="110" fill="#8a5a3a"/>
+      <rect x="70"  y="52"  width="20" height="116" fill="#8a5a3a"/>
+      <rect x="100" y="50"  width="20" height="120" fill="#8a5a3a"/>
+      <rect x="130" y="52"  width="20" height="116" fill="#8a5a3a"/>
+      <rect x="160" y="55"  width="20" height="110" fill="#8a5a3a"/>
+      <text x="100" y="240" text-anchor="middle">centred</text>
+    </g>
+
+    <!-- frame 3: look down -->
+    <g transform="translate(480,50)">
+      <rect width="200" height="220" fill="#1a2030"/>
+      <line x1="0" y1="180" x2="200" y2="180" stroke="#67718a" stroke-dasharray="3,3"/>
+      <text x="6" y="175" font-size="9" fill="#a4adc4">horizon (low)</text>
+      <rect x="10"  y="0"   width="20" height="150" fill="#8a5a3a"/>
+      <rect x="40"  y="0"   width="20" height="160" fill="#8a5a3a"/>
+      <rect x="70"  y="0"   width="20" height="165" fill="#8a5a3a"/>
+      <rect x="100" y="0"   width="20" height="170" fill="#8a5a3a"/>
+      <rect x="130" y="0"   width="20" height="165" fill="#8a5a3a"/>
+      <rect x="160" y="0"   width="20" height="160" fill="#8a5a3a"/>
+      <text x="100" y="240" text-anchor="middle">look down</text>
+    </g>
+  </g>
+  <text x="360" y="305" text-anchor="middle" font-size="11" fill="#444">No 3D rotation: only the centre-of-projection row shifts</text>
+</svg>

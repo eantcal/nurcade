@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#206ac7"/>
+    </marker>
+  </defs>
+  <rect width="720" height="360" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 8 — Eight-direction sprite views: selectViewIndex based on camera angle</text>
+
+  <!-- left: octant compass -->
+  <g transform="translate(180,180)">
+    <circle r="120" fill="#f1ece2" stroke="#bbb" stroke-width="0.8"/>
+    <!-- octant lines -->
+    <g stroke="#bbb" stroke-width="0.5" stroke-dasharray="3,3">
+      <line x1="-120" y1="0"  x2="120"  y2="0"/>
+      <line x1="0"    y1="-120" x2="0"    y2="120"/>
+      <line x1="-85"  y1="-85" x2="85"   y2="85"/>
+      <line x1="-85"  y1="85"  x2="85"   y2="-85"/>
+    </g>
+    <!-- direction labels -->
+    <g font-size="10" fill="#444">
+      <text x="0"   y="-128" text-anchor="middle">back (180°)</text>
+      <text x="92"  y="-90"  text-anchor="middle">back_right (135°)</text>
+      <text x="135" y="4"    text-anchor="start">right (90°)</text>
+      <text x="92"  y="98"   text-anchor="middle">front_right (45°)</text>
+      <text x="0"   y="138"  text-anchor="middle">front (0°)</text>
+      <text x="-92" y="98"   text-anchor="middle">front_left (315°)</text>
+      <text x="-135" y="4"   text-anchor="end">left (270°)</text>
+      <text x="-92" y="-90"  text-anchor="middle">back_left (225°)</text>
+    </g>
+    <!-- sprite at centre -->
+    <circle r="14" fill="#206ac7" stroke="white" stroke-width="2"/>
+    <text x="0" y="4" text-anchor="middle" font-size="9" fill="white" font-weight="600">sprite</text>
+    <!-- facing vector -->
+    <line x1="0" y1="0" x2="0" y2="80" stroke="#206ac7" stroke-width="1.6" marker-end="url(#ar3)"/>
+    <text x="6" y="50" font-size="9" fill="#206ac7">facingRadians</text>
+    <!-- camera at angle -->
+    <circle cx="-72" cy="-60" r="6" fill="#d35e2a" stroke="white" stroke-width="2"/>
+    <text x="-80" y="-66" text-anchor="end" font-size="9" fill="#d35e2a" font-weight="600">camera</text>
+    <line x1="0" y1="0" x2="-72" y2="-60" stroke="#d35e2a" stroke-width="0.9" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- right: sprite frames preview -->
+  <g transform="translate(400,80)" font-size="9" fill="#555">
+    <text x="0" y="-10" font-size="11" fill="#202632" font-weight="600">Eight bitmaps per frame</text>
+    <g>
+      <rect x="0"   y="0" width="36" height="48" fill="#3a3530" stroke="#888"/>
+      <text x="18"  y="62" text-anchor="middle">front</text>
+      <rect x="44"  y="0" width="36" height="48" fill="#3a3530" stroke="#888"/>
+      <text x="62"  y="62" text-anchor="middle">f_right</text>
+      <rect x="88"  y="0" width="36" height="48" fill="#3a3530" stroke="#888"/>
+      <text x="106" y="62" text-anchor="middle">right</text>
+      <rect x="132" y="0" width="36" height="48" fill="#3a3530" stroke="#888"/>
+      <text x="150" y="62" text-anchor="middle">b_right</text>
+      <rect x="176" y="0" width="36" height="48" fill="#3a3530" stroke="#888"/>
+      <text x="194" y="62" text-anchor="middle">back</text>
+      <rect x="220" y="0" width="36" height="48" fill="#3a3530" stroke="#888"/>
+      <text x="238" y="62" text-anchor="middle">b_left</text>
+      <rect x="0"   y="90" width="36" height="48" fill="#3a3530" stroke="#888"/>
+      <text x="18"  y="152" text-anchor="middle">left</text>
+      <rect x="44"  y="90" width="36" height="48" fill="#3a3530" stroke="#888"/>
+      <text x="62"  y="152" text-anchor="middle">f_left</text>
+    </g>
+    <text x="0" y="190" font-size="10" fill="#444">DirectionalSpriteFrames::selectViewIndex(cx, cy, sx, sy, facing)</text>
+    <text x="0" y="206" font-size="10" fill="#444" font-family="ui-monospace,Consolas,monospace">  index = round(((θ_camera − facing) / 2π) · 8) mod 8</text>
+  </g>
+</svg>

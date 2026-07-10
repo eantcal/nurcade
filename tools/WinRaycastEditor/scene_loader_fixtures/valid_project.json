@@ -1,0 +1,30 @@
+
+        {
+          "project": "demo_world",
+          "worldFile": "world.world.json",
+          "textureRoot": ".",
+          "spriteSets": [
+            "sprites/monster.sprite.json"
+          ],
+          "spriteInstances": [
+            {
+              "name": "guard_01",
+              "spriteSet": "monster",
+              "xCell": 5.5,
+              "yCell": 4.5,
+              "facingDegrees": 90.0,
+              "scaleCells": 1.25,
+              "collisionRadiusCells": 0.3,
+              "visible": true,
+              "passThroughWalls": false
+            },
+            {
+              "name": "ghost",
+              "spriteSet": "monster",
+              "xCell": 1.5,
+              "yCell": 2.5,
+              "passThroughWalls": true
+            }
+          ]
+        }
+    

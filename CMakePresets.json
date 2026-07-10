@@ -1,0 +1,120 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 20,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "vs2026-x64",
+      "displayName": "Visual Studio 2026 x64",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/out/build/vs2026-x64",
+      "cacheVariables": {
+        "CMAKE_GENERATOR_INSTANCE": "C:/Program Files/Microsoft Visual Studio/18/Professional",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/vs2026-x64"
+      }
+    },
+    {
+      "name": "vs2026-win32",
+      "displayName": "Visual Studio 2026 Win32",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/out/build/vs2026-win32",
+      "cacheVariables": {
+        "CMAKE_GENERATOR_INSTANCE": "C:/Program Files/Microsoft Visual Studio/18/Professional",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/vs2026-win32"
+      }
+    },
+    {
+      "name": "vs2022-x64",
+      "displayName": "Visual Studio 2022 x64",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/out/build/vs2022-x64",
+      "cacheVariables": {
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/vs2022-x64"
+      }
+    },
+    {
+      "name": "vs2022-win32",
+      "displayName": "Visual Studio 2022 Win32",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/out/build/vs2022-win32",
+      "cacheVariables": {
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/vs2022-win32"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "vs2026-x64-debug",
+      "displayName": "Build Visual Studio 2026 x64 Debug",
+      "configurePreset": "vs2026-x64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x64-release",
+      "displayName": "Build Visual Studio 2026 x64 Release",
+      "configurePreset": "vs2026-x64",
+      "configuration": "Release"
+    },
+    {
+      "name": "vs2026-x64-package",
+      "displayName": "Build Visual Studio 2026 x64 installer package",
+      "configurePreset": "vs2026-x64",
+      "configuration": "Release",
+      "targets": [
+        "PACKAGE"
+      ]
+    },
+    {
+      "name": "vs2026-win32-debug",
+      "displayName": "Build Visual Studio 2026 Win32 Debug",
+      "configurePreset": "vs2026-win32",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-win32-release",
+      "displayName": "Build Visual Studio 2026 Win32 Release",
+      "configurePreset": "vs2026-win32",
+      "configuration": "Release"
+    },
+    {
+      "name": "vs2022-x64-debug",
+      "displayName": "Build Visual Studio 2022 x64 Debug",
+      "configurePreset": "vs2022-x64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x64-release",
+      "displayName": "Build Visual Studio 2022 x64 Release",
+      "configurePreset": "vs2022-x64",
+      "configuration": "Release"
+    },
+    {
+      "name": "vs2022-x64-package",
+      "displayName": "Build Visual Studio 2022 x64 installer package",
+      "configurePreset": "vs2022-x64",
+      "configuration": "Release",
+      "targets": [
+        "PACKAGE"
+      ]
+    },
+    {
+      "name": "vs2022-win32-debug",
+      "displayName": "Build Visual Studio 2022 Win32 Debug",
+      "configurePreset": "vs2022-win32",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-win32-release",
+      "displayName": "Build Visual Studio 2022 Win32 Release",
+      "configurePreset": "vs2022-win32",
+      "configuration": "Release"
+    }
+  ]
+}

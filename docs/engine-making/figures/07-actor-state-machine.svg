@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#444"/>
+    </marker>
+  </defs>
+  <rect width="720" height="420" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 7 — ActorSystem state machine (per SpriteActor)</text>
+
+  <g font-size="11" fill="#222">
+    <!-- nodes -->
+    <g stroke="#202632" stroke-width="1">
+      <rect x="60"  y="160" width="120" height="50" rx="8" fill="#cfe2ff"/>
+      <text x="120" y="190" text-anchor="middle" font-weight="600">Idle</text>
+      <text x="120" y="225" text-anchor="middle" font-size="9" fill="#666">idle animation</text>
+
+      <rect x="260" y="60"  width="160" height="50" rx="8" fill="#d3f0d9"/>
+      <text x="340" y="90"  text-anchor="middle" font-weight="600">Patrolling</text>
+      <text x="340" y="125" text-anchor="middle" font-size="9" fill="#666">walk animation, cardinal steps</text>
+
+      <rect x="260" y="260" width="160" height="50" rx="8" fill="#fcdbb3"/>
+      <text x="340" y="290" text-anchor="middle" font-weight="600">Chasing</text>
+      <text x="340" y="325" text-anchor="middle" font-size="9" fill="#666">walk towards player</text>
+
+      <rect x="500" y="160" width="160" height="50" rx="8" fill="#f4c0c0"/>
+      <text x="580" y="190" text-anchor="middle" font-weight="600">Returning</text>
+      <text x="580" y="225" text-anchor="middle" font-size="9" fill="#666">walk back to home cell</text>
+
+      <rect x="260" y="360" width="160" height="40" rx="8" fill="#ffe199"/>
+      <text x="340" y="385" text-anchor="middle" font-weight="600">Chasing &amp; in stoppingDistance → attack clip</text>
+    </g>
+
+    <!-- transitions -->
+    <g stroke="#444" stroke-width="1.2" fill="none" marker-end="url(#ar)">
+      <path d="M180,170 Q230,90 260,90"/>
+      <path d="M260,110 Q230,150 180,180"/>
+      <path d="M180,200 Q220,260 260,280"/>
+      <path d="M260,300 Q220,310 180,210"/>
+      <path d="M420,90 Q500,90 580,160"/>
+      <path d="M500,180 Q470,260 420,280"/>
+      <path d="M420,300 Q500,300 580,200"/>
+      <path d="M580,210 Q480,170 420,150"/>
+      <path d="M340,310 V360"/>
+    </g>
+
+    <!-- transition labels -->
+    <g font-size="10" fill="#202632">
+      <text x="195" y="118">player enters detection</text>
+      <text x="195" y="155">patrolCircuit &amp; no player</text>
+      <text x="200" y="245">player → chase</text>
+      <text x="200" y="280">lost player</text>
+      <text x="435" y="100">drift past patrolRadius+hysteresis</text>
+      <text x="455" y="270">reached home</text>
+      <text x="430" y="320">player back in range</text>
+      <text x="540" y="195">arrived → idle</text>
+      <text x="348" y="350" fill="#a0540a">d(player) ≤ stoppingDistance</text>
+    </g>
+  </g>
+</svg>

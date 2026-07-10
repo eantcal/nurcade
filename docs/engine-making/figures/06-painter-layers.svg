@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect width="720" height="380" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 6 — Painter's algorithm: layers drawn back-to-front by renderToFrameBuffer</text>
+
+  <g transform="translate(60,50)" font-size="11" fill="#222">
+    <!-- 7 layers as stacked rectangles -->
+    <g stroke="#202632" stroke-width="0.6">
+      <rect x="0"   y="0"   width="400" height="32" fill="#cfdbe9"/>
+      <rect x="20"  y="38"  width="400" height="32" fill="#d4c2a1"/>
+      <rect x="40"  y="76"  width="400" height="32" fill="#a9b4cb"/>
+      <rect x="60"  y="114" width="400" height="32" fill="#bda08a"/>
+      <rect x="80"  y="152" width="400" height="32" fill="#c08e6a"/>
+      <rect x="100" y="190" width="400" height="32" fill="#9ec07a"/>
+      <rect x="120" y="228" width="400" height="32" fill="#a08aba"/>
+    </g>
+    <g font-size="11" fill="#202632">
+      <text x="10"  y="20">  1. Sky / horizon background (full-frame fill)</text>
+      <text x="30"  y="58">  2. Floor &amp; ceiling samples (per-row inverse projection)</text>
+      <text x="50"  y="96">  3. Solid walls (one cast per screen column)</text>
+      <text x="70"  y="134"> 4. Upper-wall spans (legacy "double wall")</text>
+      <text x="90"  y="172"> 5. Sprites (billboards with per-pixel depth buffer)</text>
+      <text x="110" y="210"> 6. Transparent walls — internal pass</text>
+      <text x="130" y="248"> 7. Transparent walls — external pass</text>
+    </g>
+
+    <g transform="translate(460,0)">
+      <text x="0" y="14" font-weight="600" fill="#202632">Buffers</text>
+      <g font-size="10" fill="#444">
+        <text x="0" y="36">FrameBuffer (RGBA)</text>
+        <text x="0" y="54">ColumnDepthBuffer (1×W)</text>
+        <text x="0" y="72">m_opaquePixelDepthBuffer</text>
+        <text x="0" y="90">m_spritePixelDepthBuffer</text>
+      </g>
+      <g font-size="10" fill="#666">
+        <text x="0" y="120">Each layer reads</text>
+        <text x="0" y="134">earlier depth state</text>
+        <text x="0" y="148">and updates it</text>
+        <text x="0" y="162">when it writes pixels.</text>
+      </g>
+    </g>
+
+    <text x="200" y="295" text-anchor="middle" font-size="10" fill="#666">far ← painted first … last → near</text>
+  </g>
+</svg>

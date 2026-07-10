@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect width="720" height="380" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 14 — Self-contained world package: layout under res/worlds/&lt;name&gt;/</text>
+
+  <g transform="translate(60,50)" font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#202632">
+    <rect width="600" height="290" fill="#fff" stroke="#c8ccd4"/>
+    <g>
+      <text x="14" y="24">📦 demo_embedded/</text>
+      <text x="34" y="44">├── demo.world.json              ← grid · blocks · textures · sprite refs</text>
+      <text x="34" y="64">├── textures/                     ← wall · floor · ceiling · sky bitmaps</text>
+      <text x="50" y="84">│   ├── texture_museum_01_classical_marble.png</text>
+      <text x="50" y="104">│   ├── texture_industrial_04_lava_bricks.png</text>
+      <text x="50" y="124">│   └── texture_sky_clouds.png</text>
+      <text x="34" y="144">└── sprites/</text>
+      <text x="50" y="164">    ├── doom_like_monster/</text>
+      <text x="50" y="184">    │   ├── doom_like_monster.sprite.json</text>
+      <text x="50" y="204">    │   └── 256/  (front · front_left · ... · back_right .png)</text>
+      <text x="50" y="224">    ├── small_imp/             (idle + walk × 2 frames)</text>
+      <text x="50" y="244">    ├── floating_demon_head/   (single direction)</text>
+      <text x="50" y="264">    └── sheet_brute/           (idle + walk×4 + attack×4 + death×10)</text>
+    </g>
+  </g>
+</svg>

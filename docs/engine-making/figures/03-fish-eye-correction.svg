@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect width="720" height="360" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 3 — Fish-eye distortion and cosine correction</text>
+
+  <!-- left: uncorrected -->
+  <g transform="translate(50,60)">
+    <text x="140" y="-6" text-anchor="middle" font-size="11" fill="#555">Without correction (raw ray length)</text>
+    <!-- wall -->
+    <line x1="0" y1="20" x2="280" y2="20" stroke="#444" stroke-width="3"/>
+    <text x="140" y="14" text-anchor="middle" font-size="10" fill="#444">wall at constant perpendicular distance</text>
+    <!-- camera -->
+    <circle cx="140" cy="180" r="6" fill="#206ac7"/>
+    <text x="140" y="200" text-anchor="middle" font-size="10" fill="#206ac7">camera</text>
+    <!-- rays -->
+    <g stroke="#d35e2a" stroke-width="1.2" fill="none">
+      <line x1="140" y1="180" x2="20"  y2="20"/>
+      <line x1="140" y1="180" x2="80"  y2="20"/>
+      <line x1="140" y1="180" x2="140" y2="20"/>
+      <line x1="140" y1="180" x2="200" y2="20"/>
+      <line x1="140" y1="180" x2="260" y2="20"/>
+    </g>
+    <!-- projected wall slice heights (longer rays → smaller projection → wrong) -->
+    <g transform="translate(0,230)">
+      <rect x="0"   y="20" width="40" height="40" fill="#8a5a3a"/>
+      <rect x="60"  y="10" width="40" height="60" fill="#8a5a3a"/>
+      <rect x="120" y="0"  width="40" height="80" fill="#8a5a3a"/>
+      <rect x="180" y="10" width="40" height="60" fill="#8a5a3a"/>
+      <rect x="240" y="20" width="40" height="40" fill="#8a5a3a"/>
+      <text x="140" y="100" text-anchor="middle" font-size="10" fill="#9a3a2a">curved bulge → fish-eye</text>
+    </g>
+  </g>
+
+  <!-- right: corrected -->
+  <g transform="translate(390,60)">
+    <text x="140" y="-6" text-anchor="middle" font-size="11" fill="#555">With cos(α) correction</text>
+    <line x1="0" y1="20" x2="280" y2="20" stroke="#444" stroke-width="3"/>
+    <text x="140" y="14" text-anchor="middle" font-size="10" fill="#444">same wall</text>
+    <circle cx="140" cy="180" r="6" fill="#206ac7"/>
+    <text x="140" y="200" text-anchor="middle" font-size="10" fill="#206ac7">camera</text>
+    <g stroke="#206ac7" stroke-width="1.0" fill="none" stroke-dasharray="3,3">
+      <line x1="140" y1="180" x2="20"  y2="20"/>
+      <line x1="140" y1="180" x2="80"  y2="20"/>
+      <line x1="140" y1="180" x2="140" y2="20"/>
+      <line x1="140" y1="180" x2="200" y2="20"/>
+      <line x1="140" y1="180" x2="260" y2="20"/>
+    </g>
+    <!-- perpendicular axis -->
+    <line x1="140" y1="180" x2="140" y2="20" stroke="#0a8a4a" stroke-width="1.2"/>
+    <text x="148" y="100" font-size="10" fill="#0a8a4a">perp. depth R'</text>
+
+    <!-- angle marker -->
+    <path d="M140,150 A30,30 0 0,1 165,164" stroke="#0a8a4a" fill="none" stroke-width="0.8"/>
+    <text x="170" y="160" font-size="9" fill="#0a8a4a">α</text>
+
+    <!-- projected wall slice heights flat -->
+    <g transform="translate(0,230)">
+      <rect x="0"   y="0" width="40" height="80" fill="#5a8a3a"/>
+      <rect x="60"  y="0" width="40" height="80" fill="#5a8a3a"/>
+      <rect x="120" y="0" width="40" height="80" fill="#5a8a3a"/>
+      <rect x="180" y="0" width="40" height="80" fill="#5a8a3a"/>
+      <rect x="240" y="0" width="40" height="80" fill="#5a8a3a"/>
+      <text x="140" y="100" text-anchor="middle" font-size="10" fill="#0a6a3a">R' = R·cos(α) — flat wall, no bulge</text>
+    </g>
+  </g>
+</svg>

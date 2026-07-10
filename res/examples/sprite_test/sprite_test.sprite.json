@@ -1,0 +1,72 @@
+{
+  "spriteSet": "sprite_test",
+  "format": "BMP",
+  "transparentColor": [0, 0, 0],
+  "supportedResolutions": [64],
+  "defaultResolution": 64,
+  "maxResolution": 64,
+  "directions": [
+    {
+      "name": "front",
+      "angle": 0,
+      "files": {
+        "64": "sprite_test_0.bmp"
+      }
+    },
+    {
+      "name": "front_right",
+      "angle": 45,
+      "files": {
+        "64": "sprite_test_1.bmp"
+      }
+    },
+    {
+      "name": "right",
+      "angle": 90,
+      "files": {
+        "64": "sprite_test_2.bmp"
+      }
+    },
+    {
+      "name": "back_right",
+      "angle": 135,
+      "files": {
+        "64": "sprite_test_3.bmp"
+      }
+    },
+    {
+      "name": "back",
+      "angle": 180,
+      "files": {
+        "64": "sprite_test_4.bmp"
+      }
+    },
+    {
+      "name": "back_left",
+      "angle": 225,
+      "files": {
+        "64": "sprite_test_5.bmp"
+      }
+    },
+    {
+      "name": "left",
+      "angle": 270,
+      "files": {
+        "64": "sprite_test_6.bmp"
+      }
+    },
+    {
+      "name": "front_left",
+      "angle": 315,
+      "files": {
+        "64": "sprite_test_7.bmp"
+      }
+    }
+  ],
+  "lod": [
+    {
+      "maxDistance": 9999.0,
+      "resolution": 64
+    }
+  ]
+}

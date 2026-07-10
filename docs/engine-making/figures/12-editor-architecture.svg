@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#666"/>
+    </marker>
+  </defs>
+  <rect width="720" height="380" fill="#f7f7f8"/>
+  <text x="360" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#202632">Fig. 12 — Engine ↔ Editor: shared on-disk schema, no shared headers</text>
+
+  <g font-size="11" fill="#202632">
+    <!-- engine side -->
+    <g transform="translate(40,60)" stroke="#202632" stroke-width="0.8">
+      <rect x="0" y="0" width="240" height="260" rx="8" fill="#e7eef9"/>
+      <text x="120" y="22" text-anchor="middle" font-weight="600">Engine (C++)</text>
+      <rect x="12" y="40"  width="216" height="34" rx="4" fill="#fff"/>
+      <text x="120" y="62" text-anchor="middle">WinRayCastEngine (static lib)</text>
+      <rect x="12" y="82"  width="216" height="34" rx="4" fill="#fff"/>
+      <text x="120" y="104" text-anchor="middle">WinRayCastWinSupport</text>
+      <rect x="12" y="124" width="216" height="34" rx="4" fill="#fff"/>
+      <text x="120" y="146" text-anchor="middle">WinRayCast.exe (demo)</text>
+      <rect x="12" y="166" width="216" height="34" rx="4" fill="#fff"/>
+      <text x="120" y="188" text-anchor="middle">WinRayCastTests (gtest)</text>
+      <text x="120" y="230" text-anchor="middle" font-size="9" fill="#666">CMake · MSVC · DirectDraw</text>
+    </g>
+
+    <!-- middle: shared schema -->
+    <g transform="translate(290,60)" stroke="#202632" stroke-width="0.8">
+      <rect x="0" y="0" width="140" height="260" rx="8" fill="#fff5e1"/>
+      <text x="70" y="22" text-anchor="middle" font-weight="600">Shared schema</text>
+      <rect x="10" y="40" width="120" height="30" rx="4" fill="#fff"/>
+      <text x="70" y="60" text-anchor="middle" font-size="10">*.world.json</text>
+      <rect x="10" y="78" width="120" height="30" rx="4" fill="#fff"/>
+      <text x="70" y="98" text-anchor="middle" font-size="10">*.sprite.json</text>
+      <rect x="10" y="116" width="120" height="30" rx="4" fill="#fff"/>
+      <text x="70" y="136" text-anchor="middle" font-size="10">*.winrayproj.json</text>
+      <rect x="10" y="154" width="120" height="30" rx="4" fill="#fff"/>
+      <text x="70" y="174" text-anchor="middle" font-size="10">PNG / BMP assets</text>
+      <text x="70" y="220" text-anchor="middle" font-size="9" fill="#666">"contract on disk"</text>
+    </g>
+
+    <!-- editor side -->
+    <g transform="translate(440,60)" stroke="#202632" stroke-width="0.8">
+      <rect x="0" y="0" width="240" height="260" rx="8" fill="#e7f5e9"/>
+      <text x="120" y="22" text-anchor="middle" font-weight="600">Editor (.NET 8 / WPF)</text>
+      <rect x="12" y="40"  width="216" height="34" rx="4" fill="#fff"/>
+      <text x="120" y="62" text-anchor="middle">WinRaycastEditor.Core (lib)</text>
+      <rect x="12" y="82"  width="216" height="34" rx="4" fill="#fff"/>
+      <text x="120" y="104" text-anchor="middle">WinRaycastEditor (WPF)</text>
+      <rect x="12" y="124" width="216" height="34" rx="4" fill="#fff"/>
+      <text x="120" y="146" text-anchor="middle">WinRaycastEditor.Tests (MSTest)</text>
+      <rect x="12" y="166" width="216" height="34" rx="4" fill="#fff"/>
+      <text x="120" y="188" text-anchor="middle">SpriteAnimationPlaybackController</text>
+      <text x="120" y="230" text-anchor="middle" font-size="9" fill="#666">dotnet publish · self-contained</text>
+    </g>
+
+    <!-- arrows -->
+    <g stroke="#666" stroke-width="1.2" fill="none" marker-end="url(#ar4)">
+      <line x1="280" y1="180" x2="296" y2="180"/>
+      <line x1="430" y1="180" x2="446" y2="180"/>
+    </g>
+    <g stroke="#666" stroke-width="1.2" fill="none" marker-end="url(#ar4)" stroke-dasharray="4,3">
+      <path d="M440,200 Q360,260 290,200"/>
+    </g>
+    <text x="365" y="282" text-anchor="middle" font-size="10" fill="#444">editor → engine via "Test in 3D" (spawns WinRayCast.exe with a project file)</text>
+  </g>
+</svg>

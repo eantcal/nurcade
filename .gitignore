@@ -1,0 +1,25 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.tlog
+*.obj
+*.sbr
+*.pdb
+*.recipe
+*.log
+*.user
+/.vs/
+.vs/
+/x64/Release/WinRayCast.vcxproj.FileListAbsolute.txt
+*.bsc
+/.vs/WinRayCast/v17/Browse.VC.opendb
+/.vs/WinRayCast/v17/Browse.VC.db-wal
+/.vs/WinRayCast/v17/Browse.VC.db-shm
+/.vs/WinRayCast/v17/Browse.VC.db
+/.vs/WinRayCast/v17/.suo
+/.vs/WinRayCast/v17/ipch/AutoPCH
+/out/
+bin/
+obj/
+.claude
