@@ -389,6 +389,34 @@ TEST(RaycastEngineSpriteTests, BlocksSpriteMovementIntoSolidWall)
     EXPECT_DOUBLE_EQ(96.0, engine.sprites()[0].y);
 }
 
+TEST(RaycastEngineSpriteTests, BlocksSpriteCornerClippingNearOpenDoor)
+{
+    const Cell cells[] = {
+        kEmpty, kEmpty, kEmpty,
+        kEmpty, kEmpty, kEmpty,
+        kEmpty, kEmpty, kWall,
+    };
+
+    WorldMap map;
+    ASSERT_TRUE(map.setCells(cells, 3, 3));
+    map.resizeCell(64, 64);
+    map.applyTexture(kSpriteTexture, makeSpriteTexture());
+
+    Sprite sprite = makeTestSprite();
+    sprite.x = 96.0;
+    sprite.y = 96.0;
+    sprite.collisionRadius = 18.0;
+
+    Player player(0, 0, 60, 60, 40);
+    RaycastEngine engine(player, 250000);
+    engine.addSprite(sprite);
+
+    EXPECT_FALSE(engine.moveSprite(0, 28.0, 28.0, map));
+    ASSERT_EQ(1u, engine.sprites().size());
+    EXPECT_DOUBLE_EQ(96.0, engine.sprites()[0].x);
+    EXPECT_DOUBLE_EQ(96.0, engine.sprites()[0].y);
+}
+
 TEST(RaycastEngineSpriteTests, CanMoveSpriteThroughWallsWhenCollisionIsDisabled)
 {
     auto map = makeBlockedMap();

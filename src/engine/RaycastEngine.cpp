@@ -726,12 +726,17 @@ bool RaycastEngine::canPlaceSprite(
 	}
 
 	const auto radius = std::max(0.0, sprite.collisionRadius);
+	const auto diagonalRadius = radius * 0.7071067811865476;
 
 	return !map.isSolidAtWorld(x, y)
 		&& !map.isSolidAtWorld(x - radius, y)
 		&& !map.isSolidAtWorld(x + radius, y)
 		&& !map.isSolidAtWorld(x, y - radius)
-		&& !map.isSolidAtWorld(x, y + radius);
+		&& !map.isSolidAtWorld(x, y + radius)
+		&& !map.isSolidAtWorld(x - diagonalRadius, y - diagonalRadius)
+		&& !map.isSolidAtWorld(x + diagonalRadius, y - diagonalRadius)
+		&& !map.isSolidAtWorld(x - diagonalRadius, y + diagonalRadius)
+		&& !map.isSolidAtWorld(x + diagonalRadius, y + diagonalRadius);
 }
 
 
