@@ -2,13 +2,13 @@
 
 ## Purpose
 
-This document is the initial working plan for turning WinRayCast from a Windows demo application into a reusable ray-casting engine that can later be embedded into nuBASIC as a first-class graphics/language feature.
+This document is the initial working plan for turning nuRCADE from a Windows demo application into a reusable ray-casting engine that can later be embedded into nuBASIC as a first-class graphics/language feature.
 
 The immediate goal is not to rewrite everything. The goal is to carve out a clean, testable core while preserving the current demo behavior, then add missing game-facing features such as sprites, sprite movement, and a BASIC-facing API.
 
 ## Current Situation
 
-WinRayCast is currently a compact Windows application with the engine, world model, texture loading, player movement, and presentation layer closely coupled together.
+nuRCADE is currently a compact Windows application with the engine, world model, texture loading, player movement, and presentation layer closely coupled together.
 
 Key files:
 
@@ -17,7 +17,7 @@ Key files:
 - `Player.h/.cpp`: camera/player position, angle lookup tables, movement, collision against wall cells.
 - `BitmapBuffer.h/.cpp`: Windows bitmap extraction into a 32-bit pixel buffer.
 - `DdxDevice.h/.cpp`: DirectDraw primary surface setup and frame presentation.
-- `WinRayCast.cpp`: Win32 app lifecycle, keyboard input, resource loading, camera setup, render loop.
+- `nuRCADE.cpp`: Win32 app lifecycle, keyboard input, resource loading, camera setup, render loop.
 - `res/world.ini`: map cells and texture mapping.
 
 nuBASIC already has a graphics subsystem and a BASIC-level raycast sample:
@@ -54,7 +54,7 @@ The desired end state is a layered design:
 3. `raycast_backends`
    Optional adapters for Win32/GDI, DirectDraw legacy demo support, X11/nuBASIC graphics, or any future SDL/OpenGL bridge.
 
-4. `winraycast_demo`
+4. `nurcade_demo`
    A demo application that uses the reusable core but no longer owns the engine architecture.
 
 5. `nubasic integration`
@@ -114,14 +114,14 @@ Actions:
   - raw pixel span/vector
 - Change rendering to write into that frame buffer.
 - Move final presentation into a separate adapter:
-  - current WinRayCast demo adapter uses `StretchDIBits` or DirectDraw.
+  - current nuRCADE demo adapter uses `StretchDIBits` or DirectDraw.
   - nuBASIC adapter can reuse its existing GDI/X11 drawing path.
 - Separate sky/background fill from Windows bitmap extraction.
 
 Deliverables:
 
 - `RaycastEngine::render(world, frameBuffer)` or equivalent.
-- WinRayCast still runs.
+- nuRCADE still runs.
 - No `HDC`, `HBITMAP`, or `RECT` in the core render API.
 
 ## Phase 3: Replace Windows Texture Handles with Pixel Textures
@@ -159,7 +159,7 @@ Actions:
 
 Deliverables:
 
-- A camera object usable by nuBASIC without WinRayCast globals.
+- A camera object usable by nuBASIC without nuRCADE globals.
 - Movement code that can later apply to sprites/actors too.
 
 ## Phase 5: Add Depth Buffer / Column Visibility Data
@@ -204,7 +204,7 @@ Rendering approach:
 
 Deliverables:
 
-- Static sprites visible in the WinRayCast demo.
+- Static sprites visible in the nuRCADE demo.
 - Sprites correctly hidden behind walls.
 - Transparent pixels skipped.
 
@@ -420,7 +420,7 @@ nuBASIC tests:
 3. Introduce a platform-neutral `FrameBuffer`.
 4. Refactor wall rendering to write to `FrameBuffer`.
 5. Replace `HBITMAP` in core with `Texture`.
-6. Preserve WinRayCast demo through a Win32 adapter.
+6. Preserve nuRCADE demo through a Win32 adapter.
 7. Add per-column depth buffer.
 8. Add static sprites.
 9. Add moving sprites and collision policy.
@@ -432,7 +432,7 @@ nuBASIC tests:
 
 ## Open Questions
 
-- Should the reusable engine live first inside WinRayCast, then be copied/imported into nuBASIC, or should it become a shared standalone library/submodule?
+- Should the reusable engine live first inside nuRCADE, then be copied/imported into nuBASIC, or should it become a shared standalone library/submodule?
 - Should texture pixels be RGBA, BGRA, or an explicit engine format with conversion at load time?
 - Should BASIC maps use the existing packed `uint64_t` format, a friendlier textual DSL, or both?
 - Should sprites be part of the raycast world only, or should nuBASIC expose a more general 2D sprite system too?
@@ -502,7 +502,7 @@ Recommended editor flow:
 
 The best first milestone is:
 
-> Render the existing `res/world.ini` scene through a platform-neutral frame buffer while keeping the WinRayCast demo visually equivalent.
+> Render the existing `res/world.ini` scene through a platform-neutral frame buffer while keeping the nuRCADE demo visually equivalent.
 
 This creates the foundation for both later sprites and nuBASIC integration without changing the user-facing behavior too early.
 
@@ -517,7 +517,7 @@ demo. Completed since the previous entry:
   ammo, reload, automatic/semi-auto fire timing, weapon bob, per-weapon range
   and damage. Multiple weapons per player, selected with the number keys; demo
   super shotgun force-reloads after two shots. Authored as `*.weapon.json` and
-  editable in the WinRaycastEditor weapon panel.
+  editable in the NuRcade.Editor weapon panel.
 - **Combat**: player health/stats; actor health, melee and ranged burst attacks,
   attack FOV, death animations; a new `ActorState::Attacking`. Weapon fire is a
   hitscan applying damage to the first actor along the view ray.
@@ -572,12 +572,12 @@ Completed first refactoring steps:
   and texture stretch helpers.
 - Replaced project header include guards with `#pragma once`, leaving generated
   `resource.h` untouched.
-- Split the project into `WinRayCastEngine` static library plus `WinRayCast`
+- Split the project into `nuRCADEEngine` static library plus `nuRCADE`
   demo executable.
 - Moved DirectDraw frame presentation out of `RaycastEngine` into
   `WinFramePresenter`.
 - Removed Win32 dependencies from the engine core sources and headers.
-- Added `WinRayCastWinSupport` static helper library for Windows-only graphics
+- Added `nuRCADEWinSupport` static helper library for Windows-only graphics
   support, keeping the demo thin and leaving room for future portable backends.
 - Added `ColumnDepthBuffer` and wired wall rendering to store corrected
   per-column wall depth for future sprite occlusion.
@@ -599,7 +599,7 @@ Completed first refactoring steps:
 - Added metadata-driven sprite set groundwork: JSON metadata loading,
   validation, 8-direction definitions, LOD resolution selection in map-cell
   units, resolution fallback, and a `SpriteManager` frame-selection boundary.
-- Added `WINRAYCAST_EDITOR_PLAN.md` for a C# WPF map/sprite authoring editor
+- Added `NURCADE_EDITOR_PLAN.md` for a C# WPF map/sprite authoring editor
   that can round-trip `world.ini`, validate sprite metadata, preview directional
   sprite sets, and export engine-ready data.
 - Started RAII cleanup: DirectDraw COM objects, demo-owned engine/world
@@ -613,4 +613,4 @@ Current verification baseline:
 - `cmake --build --preset vs2026-x64-release`
 - `ctest --test-dir out\build\vs2026-x64 -C Debug --output-on-failure`
 - `ctest --test-dir out\build\vs2026-x64 -C Release --output-on-failure`
-- Release smoke test: `WinRayCast` opens and responds.
+- Release smoke test: `nuRCADE` opens and responds.

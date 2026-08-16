@@ -1,4 +1,4 @@
-// This file is part of the WinRayCast Application (a 3D Engine Demo).
+// This file is part of nuRCADE (New (nu) Raycasting Classic Arcade Development Engine).
 // Copyright (C) 2005 - 2018
 // Antonino Calderone (antonino.calderone@gmail.com)
 // All rights reserved.
@@ -12,7 +12,7 @@
 #include <sapi.h>
 #include <wrl/client.h>
 
-#ifdef WINRAYCAST_HAS_SHERPA_ONNX_TTS
+#ifdef NURCADE_HAS_SHERPA_ONNX_TTS
 #include <sherpa-onnx/c-api/c-api.h>
 #endif
 
@@ -161,7 +161,7 @@ struct TextToSpeechPlayer::Impl {
     bool comInitialized = false;
     std::string backend = "AUTO";
     std::string diagnostic;
-#ifdef WINRAYCAST_HAS_SHERPA_ONNX_TTS
+#ifdef NURCADE_HAS_SHERPA_ONNX_TTS
     const SherpaOnnxOfflineTts* neuralVoice = nullptr;
     bool neuralChecked = false;
     std::wstring neuralWavePath;
@@ -176,7 +176,7 @@ TextToSpeechPlayer::TextToSpeechPlayer()
 TextToSpeechPlayer::~TextToSpeechPlayer()
 {
     stop();
-#ifdef WINRAYCAST_HAS_SHERPA_ONNX_TTS
+#ifdef NURCADE_HAS_SHERPA_ONNX_TTS
     if (m_impl->neuralVoice != nullptr) {
         SherpaOnnxDestroyOfflineTts(m_impl->neuralVoice);
         m_impl->neuralVoice = nullptr;
@@ -191,7 +191,7 @@ TextToSpeechPlayer::~TextToSpeechPlayer()
 
 bool TextToSpeechPlayer::ensureNeuralReady()
 {
-#ifndef WINRAYCAST_HAS_SHERPA_ONNX_TTS
+#ifndef NURCADE_HAS_SHERPA_ONNX_TTS
     m_impl->diagnostic = "sherpa-onnx was not enabled at build time.";
     return false;
 #else
@@ -201,10 +201,10 @@ bool TextToSpeechPlayer::ensureNeuralReady()
 
     m_impl->neuralChecked = true;
     const auto defaultModelDirectory = executableDirectory() + "tts-model\\";
-    auto model = environmentValue("WINRAYCAST_TTS_MODEL");
-    auto tokens = environmentValue("WINRAYCAST_TTS_TOKENS");
-    auto dataDir = environmentValue("WINRAYCAST_TTS_DATA_DIR");
-    const auto lexicon = environmentValue("WINRAYCAST_TTS_LEXICON");
+    auto model = environmentValue("NURCADE_TTS_MODEL");
+    auto tokens = environmentValue("NURCADE_TTS_TOKENS");
+    auto dataDir = environmentValue("NURCADE_TTS_DATA_DIR");
+    const auto lexicon = environmentValue("NURCADE_TTS_LEXICON");
     if (model.empty()) {
         model = defaultModelDirectory + "en_GB-alan-medium.onnx";
     }
@@ -247,14 +247,14 @@ bool TextToSpeechPlayer::ensureNeuralReady()
         return false;
     }
     m_impl->neuralWavePath = tempDirectory;
-    m_impl->neuralWavePath += L"WinRayCast-neural-tts.wav";
+    m_impl->neuralWavePath += L"nuRCADE-neural-tts.wav";
     return true;
 #endif
 }
 
 bool TextToSpeechPlayer::speakNeural(const std::string& text)
 {
-#ifndef WINRAYCAST_HAS_SHERPA_ONNX_TTS
+#ifndef NURCADE_HAS_SHERPA_ONNX_TTS
     (void)text;
     return false;
 #else
@@ -347,12 +347,12 @@ bool TextToSpeechPlayer::speak(const std::string& text, std::string* error)
 
     if (speakNeural(text)) {
         m_impl->backend = "SHERPA";
-        OutputDebugStringA("WinRayCast TTS backend: sherpa-onnx\n");
+        OutputDebugStringA("nuRCADE TTS backend: sherpa-onnx\n");
         return true;
     }
 
     if (!m_impl->diagnostic.empty()) {
-        OutputDebugStringA(("WinRayCast TTS sherpa-onnx fallback: "
+        OutputDebugStringA(("nuRCADE TTS sherpa-onnx fallback: "
             + m_impl->diagnostic + "\n").c_str());
     }
 
@@ -378,7 +378,7 @@ bool TextToSpeechPlayer::speak(const std::string& text, std::string* error)
     }
 
     m_impl->backend = "SAPI";
-    OutputDebugStringA("WinRayCast TTS backend: Windows SAPI\n");
+    OutputDebugStringA("nuRCADE TTS backend: Windows SAPI\n");
     return true;
 }
 
@@ -394,7 +394,7 @@ const std::string& TextToSpeechPlayer::diagnosticMessage() const noexcept
 
 void TextToSpeechPlayer::stop() noexcept
 {
-#ifdef WINRAYCAST_HAS_SHERPA_ONNX_TTS
+#ifdef NURCADE_HAS_SHERPA_ONNX_TTS
     PlaySoundW(nullptr, nullptr, 0);
 #endif
     if (!m_impl || !m_impl->voice) {

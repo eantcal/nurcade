@@ -1,4 +1,4 @@
-# Making the WinRaycast 3D Engine
+# Making the nuRCADE 3D Engine
 
 > Companion technical document to the article *Ray Casting in 3D Game Engines* (A. Calderone, *Computer Programming* #157, Infomedia, May 2006; English revision 2023). The article describes the foundational algorithm; this document mirrors its structure and extends it to cover every feature the project has accumulated since: a multi-layer JSON world format, multi-frame directional sprite animations, an actor-system AI with combat, first-person weapons, interactive doors, a minimap/compass/event-log HUD, audio, a WPF authoring tool with an animation playback canvas, and a CMake/CPack distribution pipeline.
 
@@ -48,13 +48,13 @@ The structure follows the article's Roman-numeral ordering (I – VII) for the c
 
 ## Index terms
 
-Ray casting, 3D rendering, video game engines, texture mapping, transparency, animated effects, sprites, mip mapping, WinRaycast, recursive algorithms, computer graphics, multi-frame animation, actor AI, JSON world format, world editor, CPack packaging.
+Ray casting, 3D rendering, video game engines, texture mapping, transparency, animated effects, sprites, mip mapping, nuRCADE, recursive algorithms, computer graphics, multi-frame animation, actor AI, JSON world format, world editor, CPack packaging.
 
 ## I. Introduction
 
 Graphics engines based on the ray-casting algorithm were once highly popular. *Wolfenstein 3D* (id Software, 1992) showed they could run smoothly on Intel 286-class hardware; *Doom* (1993) refined the same family with sprites, transparent walls, and variable-height sectors. Modern GPUs eventually made polygon pipelines the default, but the ray-casting model never quite lost its appeal: every step is observable in a debugger, the math fits on a whiteboard, and the cost is dominated by per-column work rather than per-triangle work — properties that suit embedded screens, educational settings, and retro-flavored games equally well.
 
-WinRaycast began life as the demo accompanying the 2006 article and is now a small but real C++ engine plus a playable first-person demo and tooling. The 2006 source already ran the column-by-column renderer, the floor/ceiling pass, BMP texture mapping with depth shading, an animated horizon, color-key transparency, and one billboard sprite. The current tree keeps every one of those pieces and adds:
+nuRCADE began life as the demo accompanying the 2006 article and is now a small but real C++ engine plus a playable first-person demo and tooling. The 2006 source already ran the column-by-column renderer, the floor/ceiling pass, BMP texture mapping with depth shading, an animated horizon, color-key transparency, and one billboard sprite. The current tree keeps every one of those pieces and adds:
 
 - a JSON [world format](../../src/engine/WorldJsonLoader.h) where each cell references a named *block definition* with multiple wall spans, per-cell floor/ceiling textures, collision flags, and an optional horizon image — and where a single world file can hold several **layers** (levels);
 - multi-frame, eight-direction [sprite animations](../../src/engine/Sprite.h) with idle/walk/attack/death clips and a per-distance LOD selector;
@@ -63,7 +63,7 @@ WinRaycast began life as the demo accompanying the 2006 article and is now a sma
 - interactive [door blocks](../../src/engine/WorldBlock.h) that open on approach (optionally gated by a key), animate through texture frames, play a sound, and auto-close;
 - a software-rendered HUD — an unlockable minimap with player marker and compass, a player status panel, and a bottom *teletype* event log;
 - [audio](../../src/win/BackgroundMusicPlayer.h): looping Ogg/Vorbis background music and sound effects for weapons, doors, and pickups;
-- a Windows WPF [editor](../../tools/WinRaycastEditor/) sharing only the on-disk schema with the engine, complete with sprite and weapon animation playback transport (play / pause / stop / step ±1), an inline JSON editor, texture import, inline sprite rename, and drag-and-drop sprite/player placement;
+- a Windows WPF [editor](../../tools/NuRcade.Editor/) sharing only the on-disk schema with the engine, complete with sprite and weapon animation playback transport (play / pause / stop / step ±1), an inline JSON editor, texture import, inline sprite rename, and drag-and-drop sprite/player placement;
 - a CMake + CPack pipeline that builds the engine, publishes the editor as a self-contained single-file executable, and assembles an NSIS installer plus a portable ZIP.
 
 The guiding constraint has not changed: the renderer should remain small enough to read in an afternoon, while the data model becomes rich enough to describe a small world rather than a numeric maze. Whenever a new feature threatened either property, the design was reconsidered before merging.
@@ -86,7 +86,7 @@ Ray casting is the simplified cousin that real-time engines actually use. It kee
 
 For each ray, the algorithm walks the grid until it hits an occupied block, measures the distance, and projects a vertical *wall slice* whose pixel height is inversely proportional to that distance. Iterating across the FOV produces a perspective-correct view of the scene without any matrix transforms, polygon clipping, or z-buffer. Figure 1 above contrasts the plan view (a 2D radial spray of rays out of the camera) with the resulting perspective view (a 3D corridor where strip heights encode depth).
 
-The price is the constraint: walls live on the grid, floors and ceilings are flat planes, and free-form geometry is out of the picture. WinRaycast accepts the constraint and then pushes against it — variable-height wall *spans*, transparent walls, portal-like blocks, animated horizon, billboard sprites, and now actor AI all extend what a grid cell can describe while preserving the column-by-column rendering core.
+The price is the constraint: walls live on the grid, floors and ceilings are flat planes, and free-form geometry is out of the picture. nuRCADE accepts the constraint and then pushes against it — variable-height wall *spans*, transparent walls, portal-like blocks, animated horizon, billboard sprites, and now actor AI all extend what a grid cell can describe while preserving the column-by-column rendering core.
 
 ### Why two coordinate systems
 
@@ -263,7 +263,7 @@ The article's Figure 5 captures the same idea: the same scene, the same camera p
 
 ## V. Texture mapping and shading
 
-Texture mapping in WinRaycast is per-block. Each cell stores up to five texture keys (solid wall, ceiling, floor, transparent wall, upper wall) packed into a 64-bit value, plus an optional reference to a `BlockDefinition` for the JSON model. The two-hex-digit *texture key* in the world JSON maps to a file name; the loader strips the `.bmp`/`.png` extension so the on-disk encoding is independent of the bitmap format.
+Texture mapping in nuRCADE is per-block. Each cell stores up to five texture keys (solid wall, ceiling, floor, transparent wall, upper wall) packed into a 64-bit value, plus an optional reference to a `BlockDefinition` for the JSON model. The two-hex-digit *texture key* in the world JSON maps to a file name; the loader strips the `.bmp`/`.png` extension so the on-disk encoding is independent of the bitmap format.
 
 Texture keys in the legacy packed cell are laid out byte by byte:
 
@@ -374,7 +374,7 @@ The sky is a *layer*, not geometry. Before any walls, floors, ceilings or sprite
 
 ## VII. Transparency, animated effects, sprites, and mip mapping
 
-The article observes that ray casting, like ray tracing, can be executed *recursively*: when a ray crosses a transparent surface the engine can continue past it, render the geometry behind, and then composite the transparent pixel on top. WinRaycast uses the painter's algorithm to achieve the same effect — distant surfaces first, then nearer ones — and combines it with per-pixel depth tests to keep the composition consistent in the presence of sprites and portal frames. Figure 8 above shows the seven layers that make up one frame.
+The article observes that ray casting, like ray tracing, can be executed *recursively*: when a ray crosses a transparent surface the engine can continue past it, render the geometry behind, and then composite the transparent pixel on top. nuRCADE uses the painter's algorithm to achieve the same effect — distant surfaces first, then nearer ones — and combines it with per-pixel depth tests to keep the composition consistent in the presence of sprites and portal frames. Figure 8 above shows the seven layers that make up one frame.
 
 ### VII.1 Three depth representations
 
@@ -449,7 +449,7 @@ Per frame, the renderer (in `RaycastEngine::renderSprites`) walks the sprite lis
 4. Projects the sprite size as `cellDx * scale * k`, where `k` is the same projection scaling factor used for walls.
 5. Walks the projected pixels, samples the texture, skips key-coloured texels, and writes the rest into the framebuffer, updating the per-pixel sprite depth buffer.
 
-The result is a 2D image that *looks* 3D when the player walks around it, at a fraction of the cost of even one polygon. The article calls this an "effective low-cost replacement" for adversaries; § IX covers what happened when WinRaycast extended that idea with multi-frame clips.
+The result is a 2D image that *looks* 3D when the player walks around it, at a fraction of the cost of even one polygon. The article calls this an "effective low-cost replacement" for adversaries; § IX covers what happened when nuRCADE extended that idea with multi-frame clips.
 
 ### VII.5 Mip mapping (per-distance LOD)
 
@@ -473,7 +473,7 @@ A sample LOD section from a sprite set:
 
 ## VIII. The JSON world format
 
-The modern world format is JSON, defined by [`WorldJsonLoader`](../../src/engine/WorldJsonLoader.h) and parsed in [`WorldJsonLoader.cpp`](../../src/engine/WorldJsonLoader.cpp). It replaces the legacy `world.ini` representation that came with the 2006 article. The loader rejects anything that is not `"format": "winraycast.world"` at `"version": 2`, so the schema can evolve without breaking shipped worlds.
+The modern world format is JSON, defined by [`WorldJsonLoader`](../../src/engine/WorldJsonLoader.h) and parsed in [`WorldJsonLoader.cpp`](../../src/engine/WorldJsonLoader.cpp). It replaces the legacy `world.ini` representation that came with the 2006 article. The loader rejects anything that is not `"format": "nurcade.world"` at `"version": 2`, so the schema can evolve without breaking shipped worlds.
 
 A JSON world declares:
 
@@ -514,7 +514,7 @@ A minimal but realistic world declaration looks like the following:
 
 ```json
 {
-  "format": "winraycast.world",
+  "format": "nurcade.world",
   "version": 2,
   "name": "demo_corridor",
   "grid": {
@@ -668,7 +668,7 @@ The [demo world](../../res/worlds/demo_embedded/) ships a `sheet_brute` actor wi
 | `attack`  |      4 |       110 ms   |  ✓   | `256_attack_{0..3}/`  |
 | `death`   |     10 |       120 ms   |  ✗   | `256_death/death_{00..09}.png` |
 
-Each non-death clip has 4 × 8 = 32 PNGs at 256 px (4 frames × 8 directions); the death clip is direction-agnostic (the brute collapses onto its side and the same frame is used regardless of viewing angle). The metadata file [`sheet_brute.sprite.json`](../../res/worlds/demo_embedded/sprites/sheet_brute/sheet_brute.sprite.json) is the source of truth for the editor and the engine alike. When the demo loads, `WinRayCast.cpp::Setup3DEngine` calls `buildDirectionalFrames` once per clip and once per frame, registers the resulting textures with the world, and pushes the assembled `Sprite` into the engine. From that point on, switching from `idle` to `walk` is a one-line call from the actor system.
+Each non-death clip has 4 × 8 = 32 PNGs at 256 px (4 frames × 8 directions); the death clip is direction-agnostic (the brute collapses onto its side and the same frame is used regardless of viewing angle). The metadata file [`sheet_brute.sprite.json`](../../res/worlds/demo_embedded/sprites/sheet_brute/sheet_brute.sprite.json) is the source of truth for the editor and the engine alike. When the demo loads, `nuRCADE.cpp::Setup3DEngine` calls `buildDirectionalFrames` once per clip and once per frame, registers the resulting textures with the world, and pushes the assembled `Sprite` into the engine. From that point on, switching from `idle` to `walk` is a one-line call from the actor system.
 
 ## X. Actor system, AI, and combat
 
@@ -725,7 +725,7 @@ The state machine is illustrated in Figure 14.
 
 ### X.1 The weapon-noise alert
 
-Detection is not purely line-of-sight: firing a weapon makes *noise*. When the player fires, the demo calls `alertActorsFromWeaponNoise`, which widens every nearby actor's effective detection radius for a few seconds. The radius scales with the weapon and is clamped to a sane band (roughly 8–24 cells), and the alert is held in `noiseAlertSecondsRemaining` / `noiseAlertRadiusCells` on each actor. While the timer is running, an idle or patrolling enemy that would not otherwise have seen the player can wake up and start chasing — so a loud weapon trades reach for stealth. The mechanic is implemented in the demo's main loop ([`src/app/WinRayCast.cpp`](../../src/app/WinRayCast.cpp)) on top of the per-actor fields above.
+Detection is not purely line-of-sight: firing a weapon makes *noise*. When the player fires, the demo calls `alertActorsFromWeaponNoise`, which widens every nearby actor's effective detection radius for a few seconds. The radius scales with the weapon and is clamped to a sane band (roughly 8–24 cells), and the alert is held in `noiseAlertSecondsRemaining` / `noiseAlertRadiusCells` on each actor. While the timer is running, an idle or patrolling enemy that would not otherwise have seen the player can wake up and start chasing — so a loud weapon trades reach for stealth. The mechanic is implemented in the demo's main loop ([`src/app/nuRCADE.cpp`](../../src/app/nuRCADE.cpp)) on top of the per-actor fields above.
 
 The radii, hysteresis, stopping distance, combat numbers, and `patrolCircuit` flag are all per-instance fields in the world JSON, so authoring an actor is a matter of choosing numbers — no code change required:
 
@@ -761,7 +761,7 @@ Item pickups reuse the same `spriteInstances` array: a decorative or interactive
 
 ## XI. The gameplay layer: weapons, doors, HUD, and audio
 
-The engine library renders and the actor system thinks; the *game* — input, weapons, combat resolution, HUD, audio, and the window — lives in the demo application [`src/app/WinRayCast.cpp`](../../src/app/WinRayCast.cpp), with Windows-only services (audio, presentation, texture decoding) under [`src/win/`](../../src/win/). The split is deliberate: the platform-neutral core never learns about a keyboard, a sound card, or a HUD.
+The engine library renders and the actor system thinks; the *game* — input, weapons, combat resolution, HUD, audio, and the window — lives in the demo application [`src/app/nuRCADE.cpp`](../../src/app/nuRCADE.cpp), with Windows-only services (audio, presentation, texture decoding) under [`src/win/`](../../src/win/). The split is deliberate: the platform-neutral core never learns about a keyboard, a sound card, or a HUD.
 
 ### XI.1 First-person weapons
 
@@ -835,7 +835,7 @@ struct DoorDefinition {
 
 ### XI.3 The HUD: minimap, compass, and event log
 
-The runtime surface is larger than the 3D viewport on purpose. The demo renders the scene into a `1024 × 768` region (`RENDER_X_RES × RENDER_Y_RES`) and reserves a right-hand band (`HUD_PANEL_X_RES = 384`) and a bottom band (`HUD_PANEL_Y_RES`) for HUD content, so no raycast work is wasted on pixels the UI will overwrite. `drawRuntimeHud` in [`WinRayCast.cpp`](../../src/app/WinRayCast.cpp) paints three things:
+The runtime surface is larger than the 3D viewport on purpose. The demo renders the scene into a `1024 × 768` region (`RENDER_X_RES × RENDER_Y_RES`) and reserves a right-hand band (`HUD_PANEL_X_RES = 384`) and a bottom band (`HUD_PANEL_Y_RES`) for HUD content, so no raycast work is wasted on pixels the UI will overwrite. `drawRuntimeHud` in [`nuRCADE.cpp`](../../src/app/nuRCADE.cpp) paints three things:
 
 - **Minimap** — a top-down view of the current layer in the right band, drawn only once `g_minimapUnlocked` is set (by walking into the computer pickup, `unlocksMap`). It shows the walls, the player as a marker, key/item pickups, and — once `g_minimapActorsUnlocked` — live enemy positions.
 - **Compass** — a heading line drawn from the player marker using the player's view angle, with the world's orientation convention (top of the cell matrix is north, increasing column is east, increasing row is south).
@@ -853,17 +853,17 @@ A single world file can describe several **layers** — effectively levels — t
 
 ## XII. The editor
 
-The [`WinRaycastEditor`](../../tools/WinRaycastEditor/) is a .NET 8 WPF application split into three projects:
+The [`NuRcade.Editor`](../../tools/NuRcade.Editor/) is a .NET 8 WPF application split into three projects:
 
-- **`WinRaycastEditor.Core`** — pure C# library, no UI dependency. Holds the in-memory document model (`EditorMapDocument`, `EditorMapCell`, `EditorSpriteInstance`), the JSON load/save services (`WorldJsonDocumentService`, `SpriteMetadataLoader`, `EditorProjectDocumentService`), the LOD selector, and the validation rules.
-- **`WinRaycastEditor`** — the WPF host. Owns the view models, the MainWindow XAML, drag-and-drop handlers, and the `SpriteAnimationPlaybackController`.
-- **`WinRaycastEditor.Tests`** — the MSTest suite. Both the Core API and a number of `MainWindowViewModel` scenarios are exercised here without a UI thread.
+- **`NuRcade.Editor.Core`** — pure C# library, no UI dependency. Holds the in-memory document model (`EditorMapDocument`, `EditorMapCell`, `EditorSpriteInstance`), the JSON load/save services (`WorldJsonDocumentService`, `SpriteMetadataLoader`, `EditorProjectDocumentService`), the LOD selector, and the validation rules.
+- **`NuRcade.Editor`** — the WPF host. Owns the view models, the MainWindow XAML, drag-and-drop handlers, and the `SpriteAnimationPlaybackController`.
+- **`NuRcade.Editor.Tests`** — the MSTest suite. Both the Core API and a number of `MainWindowViewModel` scenarios are exercised here without a UI thread.
 
 The architecture is summarised in Figure 15.
 
 ![Editor and engine share the on-disk schema](figures/12-editor-architecture.svg)
 
-The editor never links against the C++ engine. It shares the *on-disk schema* — the same JSON world format, the same sprite metadata, and a small extension (`*.winrayproj.json`) for project files — and that is the entire integration contract. A future port of the renderer to a different language would not require rewriting the editor.
+The editor never links against the C++ engine. It shares the *on-disk schema* — the same JSON world format, the same sprite metadata, and a small extension (`*.nurcadeproj.json`) for project files — and that is the entire integration contract. A future port of the renderer to a different language would not require rewriting the editor.
 
 ### XII.1 World editing model
 
@@ -875,7 +875,7 @@ The Sprites tab embeds a frame-by-frame playback transport for the selected anim
 
 ![Editor animation playback canvas with transport bar](figures/13-editor-playback-canvas.svg)
 
-The controller [`SpriteAnimationPlaybackController`](../../tools/WinRaycastEditor/src/WinRaycastEditor/SpriteAnimationPlaybackController.cs) owns:
+The controller [`SpriteAnimationPlaybackController`](../../tools/NuRcade.Editor/src/NuRcade.Editor/SpriteAnimationPlaybackController.cs) owns:
 
 - a `DispatcherTimer` whose interval is set from `frameDurationMs` of the active clip;
 - a cache of pre-decoded `ImageSource`s, one per frame, for the currently selected direction (with `front` as fallback);
@@ -900,27 +900,27 @@ with `WrappedNext` honouring the clip's `Loop` flag (clamping at the last frame 
 Two interactions added recently mirror common map-editor gestures:
 
 - **Inline rename.** The Map tab's Sprite Editing panel exposes a text box bound to `SelectedSprite.Name`, so renaming an actor is a single edit without leaving the map context.
-- **Drag-and-drop.** The same `DragDrop.DoDragDrop` machinery used for sprites is wired to the player marker. `PlayerDrag_PreviewMouseLeftButtonDown` and `PlayerDrag_MouseMove` (in [`MainWindow.xaml.cs`](../../tools/WinRaycastEditor/src/WinRaycastEditor/MainWindow.xaml.cs)) initiate a drag with a dedicated `PlayerDragFormat`; `MapCell_Drop` accepts that format and calls `MainWindowViewModel.MovePlayerToCell`, which records an undoable `PlayerStartUndoAction`. The result: drag the `P` badge from one cell to another and the player start moves, with Ctrl+Z restoring the previous position.
+- **Drag-and-drop.** The same `DragDrop.DoDragDrop` machinery used for sprites is wired to the player marker. `PlayerDrag_PreviewMouseLeftButtonDown` and `PlayerDrag_MouseMove` (in [`MainWindow.xaml.cs`](../../tools/NuRcade.Editor/src/NuRcade.Editor/MainWindow.xaml.cs)) initiate a drag with a dedicated `PlayerDragFormat`; `MapCell_Drop` accepts that format and calls `MainWindowViewModel.MovePlayerToCell`, which records an undoable `PlayerStartUndoAction`. The result: drag the `P` badge from one cell to another and the player start moves, with Ctrl+Z restoring the previous position.
 
 ### XII.4 Weapon authoring and the JSON editor
 
 Two more authoring surfaces round out the editor:
 
-- **Weapon authoring.** `WeaponMetadataLoader` / `WeaponMetadataWriter` / `WeaponMetadataDocument` (in `WinRaycastEditor.Core`) round-trip a `*.weapon.json`, so weapons can be edited and previewed (animations, ammo, damage, bob) alongside sprites and blocks, with the same JSON-faithful save path the world format uses.
+- **Weapon authoring.** `WeaponMetadataLoader` / `WeaponMetadataWriter` / `WeaponMetadataDocument` (in `NuRcade.Editor.Core`) round-trip a `*.weapon.json`, so weapons can be edited and previewed (animations, ammo, damage, bob) alongside sprites and blocks, with the same JSON-faithful save path the world format uses.
 - **Inline JSON editor.** A docked, syntax-aware JSON pane (`JsonEditorPanelViewModel`, backed by a Scintilla host) shows the underlying document and keeps the structured editor and the raw text in sync — `JsonSpanLocator` maps a selected object back to its byte span, and `JsonEditingBackupService` guards against a bad hand-edit. Texture import (`TextureImport`) brings external bitmaps into a world package and rewrites the palette to package-relative paths.
 
 ### XII.5 Test-in-3D launcher
 
-The `Test in 3D` menu item exports the currently-loaded document to a temporary `preview.winrayproj.json` and launches `WinRayCastPlayer.exe` with that project as the command-line argument. The player resolves the project, loads the world JSON, and runs it. Round-tripping through the on-disk schema is the canonical way to validate that the editor and the engine still agree on a world.
+The `Test in 3D` menu item exports the currently-loaded document to a temporary `preview.nurcadeproj.json` and launches `nuRCADEPlayer.exe` with that project as the command-line argument. The player resolves the project, loads the world JSON, and runs it. Round-tripping through the on-disk schema is the canonical way to validate that the editor and the engine still agree on a world.
 
 ## XIII. Build, packaging, and distribution
 
 The build system is CMake (3.20+). Four targets are declared in [`CMakeLists.txt`](../../CMakeLists.txt):
 
-- `WinRayCastEngine` — static library, no Windows dependencies;
-- `WinRayCastWinSupport` — static library wrapping DirectDraw, BMP/PNG loading, and the frame presenter;
-- `WinRayCastPlayer` — the FPS world player executable;
-- `WinRaycastEditorPublish` — a custom target that runs `dotnet publish` to produce a self-contained, single-file `WinRaycastEditor.exe`.
+- `nuRCADEEngine` — static library, no Windows dependencies;
+- `nuRCADEWinSupport` — static library wrapping DirectDraw, BMP/PNG loading, and the frame presenter;
+- `nuRCADEPlayer` — the FPS world player executable;
+- `NuRcade.EditorPublish` — a custom target that runs `dotnet publish` to produce a self-contained, single-file `NuRcade.Editor.exe`.
 
 The Visual Studio presets (`vs2026-x64`, `vs2026-win32`, `vs2022-x64`, `vs2022-win32`) generate one solution that contains both the C++ engine projects and the C# editor projects (via `include_external_msproject`), so opening the generated `.slnx` shows the whole workspace.
 
@@ -934,12 +934,12 @@ cpack --config out/build/vs2026-x64/CPackConfig.cmake -C Release
 
 The CPack section assembles a redistributable bundle:
 
-- `WinRayCastPlayer.exe`,
+- `nuRCADEPlayer.exe`,
 - `res/worlds/demo_embedded/` (the self-contained world package: layer/world JSON, textures, sprite metadata and bitmaps, weapon definitions, sound effects, background music, and HUD frames),
-- `editor/WinRaycastEditor.exe` (no .NET runtime required on the target machine),
+- `editor/NuRcade.Editor.exe` (no .NET runtime required on the target machine),
 - `LICENSE.txt`.
 
-Two generators are configured: NSIS (Windows installer `.exe`, with three Start-menu shortcuts — *WinRayCast (default world)*, *WinRayCast (demo world)*, *WinRaycast Editor* — and an uninstaller) and ZIP (portable archive).
+Two generators are configured: NSIS (Windows installer `.exe`, with three Start-menu shortcuts — *nuRCADE Player*, *nuRCADE Player (demo world)*, *nuRCADE Editor* — and an uninstaller) and ZIP (portable archive).
 
 ## XIV. Testing
 
@@ -973,13 +973,13 @@ TEST(ActorSystemTests, ChasingActorPlaysAttackAtStoppingDistance) {
 }
 ```
 
-The editor ships its own MSTest suite under [`tools/WinRaycastEditor/src/WinRaycastEditor.Tests/`](../../tools/WinRaycastEditor/src/WinRaycastEditor.Tests/). It exercises the Core library (world/sprite/weapon loaders and writers, sprite resolution and LOD selection, the legacy converter, validation, JSON span location and editing backup, layer sprite round-trips, texture import) and a number of view-model scenarios (undo/redo for cell edits and player start moves, paste/copy of sprites and cells, sprite animation editing, the block palette, drag-and-drop of the player marker).
+The editor ships its own MSTest suite under [`tools/NuRcade.Editor/src/NuRcade.Editor.Tests/`](../../tools/NuRcade.Editor/src/NuRcade.Editor.Tests/). It exercises the Core library (world/sprite/weapon loaders and writers, sprite resolution and LOD selection, the legacy converter, validation, JSON span location and editing backup, layer sprite round-trips, texture import) and a number of view-model scenarios (undo/redo for cell edits and player start moves, paste/copy of sprites and cells, sprite animation editing, the block palette, drag-and-drop of the player marker).
 
 The two suites are independent — gtest produces a Win32 `.exe`, MSTest produces a .NET DLL — and both run from a clean clone with the same `cmake --build` invocation.
 
 ## XV. Conclusion
 
-WinRaycast was constructed to strike a balance between performance and code comprehensibility, and that constraint still drives every decision. The 2006 article described a single-author demo that fit in a magazine listing. The 2026 codebase is bigger — multi-layer JSON worlds, multi-frame animations, an AI loop with combat, first-person weapons, interactive doors, a HUD, audio, an editor, a packaged installer — but every addition has been made under the same rule: the per-column rendering core remains short, the data model carries the new complexity, the gameplay lives in the demo application rather than the engine core, and the editor sits on the schema, not on the C++ API.
+nuRCADE was constructed to strike a balance between performance and code comprehensibility, and that constraint still drives every decision. The 2006 article described a single-author demo that fit in a magazine listing. The 2026 codebase is bigger — multi-layer JSON worlds, multi-frame animations, an AI loop with combat, first-person weapons, interactive doors, a HUD, audio, an editor, a packaged installer — but every addition has been made under the same rule: the per-column rendering core remains short, the data model carries the new complexity, the gameplay lives in the demo application rather than the engine core, and the editor sits on the schema, not on the C++ API.
 
 There is still room to push the model further. Wall spans could subsume the legacy "upper wall" branch entirely; floors and ceilings could acquire variable heights to enable balconies and pits; the colour-key transparency could grow into a full alpha channel; the actor system could grow line-of-sight and group behaviour on top of its existing health and attack model; layer-to-layer transitions could become a first-class session concept; and the HUD overlay could be lifted out of the Win32 demo into backend-neutral draw commands. None of these are blocked by the current architecture — they would extend it rather than break it.
 
@@ -997,8 +997,8 @@ The accompanying article remains the primary reference for the core algorithm; t
 
 ## About the author
 
-Antonino Calderone has worked for years in the software industry with companies such as Cisco, Microsoft, Workday, McAfee, Intel, and Ericsson, in roles ranging from Technical Leader to Senior and Principal Software Engineer, and Security Architect. Alongside his industry work he supports open source and publishes his projects at https://www.eantcal.eu. He wrote for the Italian *Computer Programming* magazine in the 1990s and 2000s — the original 2006 article behind WinRaycast appeared in issue #157. He studied Computer Engineering and Electronics and has been involved in research; one of his papers won an award at the 2021 AEIT International Conference on Electrical and Electronic Technologies for Automotive.
+Antonino Calderone has worked for years in the software industry with companies such as Cisco, Microsoft, Workday, McAfee, Intel, and Ericsson, in roles ranging from Technical Leader to Senior and Principal Software Engineer, and Security Architect. Alongside his industry work he supports open source and publishes his projects at https://www.eantcal.eu. He wrote for the Italian *Computer Programming* magazine in the 1990s and 2000s — the original 2006 article behind nuRCADE appeared in issue #157. He studied Computer Engineering and Electronics and has been involved in research; one of his papers won an award at the 2021 AEIT International Conference on Electrical and Electronic Technologies for Automotive.
 
 ---
 
-*Refined source for this document and the engine: https://github.com/eantcal/Winraycast.*
+*Refined source for this document and the engine: https://github.com/eantcal/nuRCADE.*

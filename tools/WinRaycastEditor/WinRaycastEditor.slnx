@@ -1,7 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/WinRaycastEditor.Core/WinRaycastEditor.Core.csproj" />
-    <Project Path="src/WinRaycastEditor.Tests/WinRaycastEditor.Tests.csproj" />
-    <Project Path="src/WinRaycastEditor/WinRaycastEditor.csproj" />
-  </Folder>
-</Solution>

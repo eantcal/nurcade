@@ -14,13 +14,13 @@
       <rect x="0" y="0" width="240" height="260" rx="8" fill="#e7eef9"/>
       <text x="120" y="22" text-anchor="middle" font-weight="600">Engine (C++)</text>
       <rect x="12" y="40"  width="216" height="34" rx="4" fill="#fff"/>
-      <text x="120" y="62" text-anchor="middle">WinRayCastEngine (static lib)</text>
+      <text x="120" y="62" text-anchor="middle">nuRCADEEngine (static lib)</text>
       <rect x="12" y="82"  width="216" height="34" rx="4" fill="#fff"/>
-      <text x="120" y="104" text-anchor="middle">WinRayCastWinSupport</text>
+      <text x="120" y="104" text-anchor="middle">nuRCADEWinSupport</text>
       <rect x="12" y="124" width="216" height="34" rx="4" fill="#fff"/>
-      <text x="120" y="146" text-anchor="middle">WinRayCast.exe (demo)</text>
+      <text x="120" y="146" text-anchor="middle">nuRCADE.exe (demo)</text>
       <rect x="12" y="166" width="216" height="34" rx="4" fill="#fff"/>
-      <text x="120" y="188" text-anchor="middle">WinRayCastTests (gtest)</text>
+      <text x="120" y="188" text-anchor="middle">nuRCADETests (gtest)</text>
       <text x="120" y="230" text-anchor="middle" font-size="9" fill="#666">CMake · MSVC · DirectDraw</text>
     </g>
 
@@ -33,7 +33,7 @@
       <rect x="10" y="78" width="120" height="30" rx="4" fill="#fff"/>
       <text x="70" y="98" text-anchor="middle" font-size="10">*.sprite.json</text>
       <rect x="10" y="116" width="120" height="30" rx="4" fill="#fff"/>
-      <text x="70" y="136" text-anchor="middle" font-size="10">*.winrayproj.json</text>
+      <text x="70" y="136" text-anchor="middle" font-size="10">*.nurcadeproj.json</text>
       <rect x="10" y="154" width="120" height="30" rx="4" fill="#fff"/>
       <text x="70" y="174" text-anchor="middle" font-size="10">PNG / BMP assets</text>
       <text x="70" y="220" text-anchor="middle" font-size="9" fill="#666">"contract on disk"</text>
@@ -44,11 +44,11 @@
       <rect x="0" y="0" width="240" height="260" rx="8" fill="#e7f5e9"/>
       <text x="120" y="22" text-anchor="middle" font-weight="600">Editor (.NET 8 / WPF)</text>
       <rect x="12" y="40"  width="216" height="34" rx="4" fill="#fff"/>
-      <text x="120" y="62" text-anchor="middle">WinRaycastEditor.Core (lib)</text>
+      <text x="120" y="62" text-anchor="middle">NuRcade.Editor.Core (lib)</text>
       <rect x="12" y="82"  width="216" height="34" rx="4" fill="#fff"/>
-      <text x="120" y="104" text-anchor="middle">WinRaycastEditor (WPF)</text>
+      <text x="120" y="104" text-anchor="middle">NuRcade.Editor (WPF)</text>
       <rect x="12" y="124" width="216" height="34" rx="4" fill="#fff"/>
-      <text x="120" y="146" text-anchor="middle">WinRaycastEditor.Tests (MSTest)</text>
+      <text x="120" y="146" text-anchor="middle">NuRcade.Editor.Tests (MSTest)</text>
       <rect x="12" y="166" width="216" height="34" rx="4" fill="#fff"/>
       <text x="120" y="188" text-anchor="middle">SpriteAnimationPlaybackController</text>
       <text x="120" y="230" text-anchor="middle" font-size="9" fill="#666">dotnet publish · self-contained</text>
@@ -62,6 +62,6 @@
     <g stroke="#666" stroke-width="1.2" fill="none" marker-end="url(#ar4)" stroke-dasharray="4,3">
       <path d="M440,200 Q360,260 290,200"/>
     </g>
-    <text x="365" y="282" text-anchor="middle" font-size="10" fill="#444">editor → engine via "Test in 3D" (spawns WinRayCast.exe with a project file)</text>
+    <text x="365" y="282" text-anchor="middle" font-size="10" fill="#444">editor → engine via "Test in 3D" (spawns nuRCADE.exe with a project file)</text>
   </g>
 </svg>

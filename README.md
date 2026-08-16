@@ -1,10 +1,18 @@
-# Winraycast
+# nuRCADE
 
-Welcome to Winraycast, a modern refactoring of a classic 1990s ray-casting 3D engine, now revitalized for contemporary compilers. Crafted in C++, this project operates natively on Windows, eschewing reliance on external 3D libraries such as OpenGL or DirectX. At its core, Winraycast is an homage to the foundational era of 3D gaming and graphical computation, demonstrating the ray-casting algorithm in its purest form.
+<p align="center"><img width="760" alt="nuRCADE - New (nu) Raycasting Classic Arcade Development Engine" src="branding/nurcade-logo.png" /></p>
+
+**nuRCADE** stands for **New (nu) Raycasting Classic Arcade Development Engine**.
+
+The project was originally published as **WinRayCast**; that name is retained
+only when discussing its history. Current code, tools, packages, and file
+formats use the nuRCADE identity.
+
+Welcome to nuRCADE, a modern refactoring of a classic 1990s ray-casting 3D engine, now revitalized for contemporary compilers. Crafted in C++, this project operates natively on Windows, eschewing reliance on external 3D libraries such as OpenGL or DirectX. At its core, nuRCADE is an homage to the foundational era of 3D gaming and graphical computation, demonstrating the ray-casting algorithm in its purest form.
 
 ## Project Background
 
-This endeavor is more than a simple codebase; it's a deep dive into the roots of 3D rendering techniques. Winraycast stands as a testament to the power and versatility of ray-casting in generating 3D environments. The project is directly inspired by and associated with an article originally published in the Computer Programming magazine by Infomedia ("Ray casting, engine 3d e videogame" by A. Calderone, first
+This endeavor is more than a simple codebase; it's a deep dive into the roots of 3D rendering techniques. nuRCADE stands as a testament to the power and versatility of ray-casting in generating 3D environments. The project is directly inspired by and associated with an article originally published in the Computer Programming magazine by Infomedia ("Ray casting, engine 3d e videogame" by A. Calderone, first
 published in Computer Programming, issue number 157 in May 2006.). You can delve into the article that started it all [here](https://drive.google.com/file/d/1VdE1RofILJtZBS246gOk02VrHA-Tu_79/view).
 
 What started as a single-frame rendering demo has grown into a small but complete first-person playable demo: the renderer is still the same column-by-column ray caster, but it now sits under a gameplay layer with weapons, enemies, pickups, doors, sound, and a HUD.
@@ -12,7 +20,7 @@ What started as a single-frame rendering demo has grown into a small but complet
 ## Features
 
 - **Ray-cast renderer** — column-by-column wall casting, per-pixel floor/ceiling projection, depth shading, a scrolling sky/horizon layer, color-key transparency, and variable-height wall *spans*.
-- **JSON world format** (`winraycast.world`, version 2) — a reusable *block palette* with per-block floor/ceiling surfaces and ordered wall spans, referenced by a cell matrix. Multiple **layers** (levels) can live in one world file.
+- **JSON world format** (`nurcade.world`, version 2) — a reusable *block palette* with per-block floor/ceiling surfaces and ordered wall spans, referenced by a cell matrix. Multiple **layers** (levels) can live in one world file.
 - **Sprites** — Doom-style eight-direction billboards with multi-frame animation clips (idle / walk / attack / death) and per-distance LOD (mip-map) selection.
 - **Actor AI** — sprites can patrol, detect, chase, return home, and attack; enemies have health, melee or ranged (burst-fire) attacks, and death animations. Weapon fire makes *noise* that temporarily widens nearby enemies' alert radius.
 - **Weapons** — first-person view weapons (pistol, super shotgun, automatic submachine gun) with magazines, reserve ammo, reloads, automatic/semi-auto fire, weapon bob, and per-weapon range/damage. Switch weapons with the number keys.
@@ -40,7 +48,7 @@ What started as a single-frame rendering demo has grown into a small but complet
 | `F10` / `F11` | Background music volume down / up |
 | `Esc` / `F12` | Quit |
 
-## Winraycast in Action: Screenshots
+## nuRCADE in Action: Screenshots
 
 These screenshots show the current demo world, weapons, HUD, minimap/key status, sprites, wall spans, floor/ceiling projection, and open-sky areas.
 
@@ -59,7 +67,7 @@ These screenshots show the current demo world, weapons, HUD, minimap/key status,
 
 ## Dive into the Code
 
-Interested in how classic 3D rendering works at the code level? Winraycast is an open invitation to developers, enthusiasts, and students alike to explore the internals of a ray-casting engine. Whether you're a seasoned programmer looking to reminisce or a new developer eager to understand the building blocks of 3D graphics, Winraycast offers an interesting educational experience.
+Interested in how classic 3D rendering works at the code level? nuRCADE is an open invitation to developers, enthusiasts, and students alike to explore the internals of a ray-casting engine. Whether you're a seasoned programmer looking to reminisce or a new developer eager to understand the building blocks of 3D graphics, nuRCADE offers an interesting educational experience.
 
 ### Making the engine
 
@@ -67,13 +75,13 @@ A long-form companion to the original *Ray Casting in 3D Game Engines* article �
 
 ## Building with CMake
 
-WinRayCast uses CMake as the source of truth for Visual Studio projects. The generated solution and project files are intentionally not committed; create them locally under `out/`.
+nuRCADE uses CMake as the source of truth for Visual Studio projects. The generated solution and project files are intentionally not committed; create them locally under `out/`.
 
 The CMake project builds three main targets:
 
-- `WinRayCastEngine`: static library with the reusable ray-casting engine core.
-- `WinRayCastWinSupport`: Windows helper library for DirectDraw presentation and bitmap-to-texture loading.
-- `WinRayCastPlayer`: Windows FPS player executable that loads and runs WinRayCast worlds.
+- `nuRCADEEngine`: static library with the reusable ray-casting engine core.
+- `nuRCADEWinSupport`: Windows helper library for DirectDraw presentation and bitmap-to-texture loading.
+- `nuRCADEPlayer`: Windows FPS player executable that loads and runs nuRCADE worlds.
 
 ### Requirements
 
@@ -87,20 +95,20 @@ The CMake project builds three main targets:
 From a Developer PowerShell or any shell where CMake can find Visual Studio:
 
 ```powershell
-cd C:\repo\winraycast
+cd C:\repo\nurcade
 cmake --preset vs2026-x64
 ```
 
 This creates the generated Visual Studio files in:
 
 ```text
-C:\repo\winraycast\out\build\vs2026-x64
+C:\repo\nurcade\out\build\vs2026-x64
 ```
 
 With CMake 4 and Visual Studio 2026 the generated solution file may use the new `.slnx` format:
 
 ```text
-out\build\vs2026-x64\WinRayCast.slnx
+out\build\vs2026-x64\nuRCADE.slnx
 ```
 
 ### Build Debug and Release
@@ -113,61 +121,61 @@ cmake --build --preset vs2026-x64-release
 The executables are generated here:
 
 ```text
-out\build\vs2026-x64\Debug\WinRayCastPlayer.exe
-out\build\vs2026-x64\Release\WinRayCastPlayer.exe
+out\build\vs2026-x64\Debug\nuRCADEPlayer.exe
+out\build\vs2026-x64\Release\nuRCADEPlayer.exe
 ```
 
 The engine library is generated here:
 
 ```text
-out\build\vs2026-x64\Debug\WinRayCastEngine.lib
-out\build\vs2026-x64\Release\WinRayCastEngine.lib
+out\build\vs2026-x64\Debug\nuRCADEEngine.lib
+out\build\vs2026-x64\Release\nuRCADEEngine.lib
 ```
 
 The Windows support helper library is generated here:
 
 ```text
-out\build\vs2026-x64\Debug\WinRayCastWinSupport.lib
-out\build\vs2026-x64\Release\WinRayCastWinSupport.lib
+out\build\vs2026-x64\Debug\nuRCADEWinSupport.lib
+out\build\vs2026-x64\Release\nuRCADEWinSupport.lib
 ```
 
 Run the executable from the repository root so it can find the self-contained demo world package:
 
 ```powershell
-cd C:\repo\winraycast
-.\out\build\vs2026-x64\Release\WinRayCastPlayer.exe
+cd C:\repo\nurcade
+.\out\build\vs2026-x64\Release\nuRCADEPlayer.exe
 ```
 
 You can also pass a world package directly:
 
 ```powershell
-.\out\build\vs2026-x64\Release\WinRayCastPlayer.exe .\res\worlds\demo_embedded\demo.world.json
+.\out\build\vs2026-x64\Release\nuRCADEPlayer.exe .\res\worlds\demo_embedded\demo.world.json
 ```
 
 ### Optional neural text-to-speech
 
-WinRayCast uses `sherpa-onnx` neural TTS for spoken event messages. Sound effects and background music still use the Windows audio stack. On x64, CMake downloads the official shared SDK and the deep male Piper `en_GB-alan-medium-int8` voice when no local installation is found, then places the DLLs and model beside the player. Downloads are cached inside the build directory. A local installation can still be provided through the `sherpa-onnx` pkg-config package or `SHERPA_ONNX_ROOT`.
+nuRCADE uses `sherpa-onnx` neural TTS for spoken event messages. Sound effects and background music still use the Windows audio stack. On x64, CMake downloads the official shared SDK and the deep male Piper `en_GB-alan-medium-int8` voice when no local installation is found, then places the DLLs and model beside the player. Downloads are cached inside the build directory. A local installation can still be provided through the `sherpa-onnx` pkg-config package or `SHERPA_ONNX_ROOT`.
 
 The bundled build needs no environment variables. These optional overrides select another compatible model:
 
 ```powershell
-$env:WINRAYCAST_TTS_MODEL = 'C:\tts\voice\model.onnx'
-$env:WINRAYCAST_TTS_TOKENS = 'C:\tts\voice\tokens.txt'
-$env:WINRAYCAST_TTS_DATA_DIR = 'C:\tts\voice\espeak-ng-data'
+$env:NURCADE_TTS_MODEL = 'C:\tts\voice\model.onnx'
+$env:NURCADE_TTS_TOKENS = 'C:\tts\voice\tokens.txt'
+$env:NURCADE_TTS_DATA_DIR = 'C:\tts\voice\espeak-ng-data'
 ```
 
-Models using a lexicon can set `WINRAYCAST_TTS_LEXICON` instead of `WINRAYCAST_TTS_DATA_DIR`. To force the native Windows backend at build time:
+Models using a lexicon can set `NURCADE_TTS_LEXICON` instead of `NURCADE_TTS_DATA_DIR`. To force the native Windows backend at build time:
 
 ```powershell
-cmake --preset vs2026-x64 -DWINRAYCAST_ENABLE_NEURAL_TTS=OFF
+cmake --preset vs2026-x64 -DNURCADE_ENABLE_NEURAL_TTS=OFF
 ```
 
-Use `WinRayCastPlayer.exe --tts-test` to speak a startup test phrase. After the first spoken event, the HUD reports `TTS SHERPA` or `TTS SAPI`, reflecting the backend that actually succeeded. If the player falls back to SAPI, it also emits a debug diagnostic explaining which sherpa asset or initialization step failed.
+Use `nuRCADEPlayer.exe --tts-test` to speak a startup test phrase. After the first spoken event, the HUD reports `TTS SHERPA` or `TTS SAPI`, reflecting the backend that actually succeeded. If the player falls back to SAPI, it also emits a debug diagnostic explaining which sherpa asset or initialization step failed.
 
-Sherpa-onnx also publishes static Windows libraries, so static linking is possible, but the default WinRayCast package currently uses the official shared SDK and bundles the required DLLs beside `WinRayCastPlayer.exe`.
+Sherpa-onnx also publishes static Windows libraries, so static linking is possible, but the default nuRCADE package currently uses the official shared SDK and bundles the required DLLs beside `nuRCADEPlayer.exe`.
 
 Developer controls are hidden during normal play. Start the player with
-`WinRayCastPlayer.exe --dev` to expose the **Game** cheat menu and the dynamic
+`nuRCADEPlayer.exe --dev` to expose the **Game** cheat menu and the dynamic
 **Level** menu. Options such as `--immortal` take effect only together with
 `--dev`.
 
@@ -190,10 +198,10 @@ vs2022-win32
 
 ## Editor and unified solution
 
-The C# WPF editor (`tools/WinRaycastEditor`) is **part of the same generated Visual Studio solution** as the engine. The CMake build adds the editor projects via `include_external_msproject`, so opening `out\build\vs2026-x64\WinRayCast.slnx` shows:
+The C# WPF editor (`tools/NuRcade.Editor`) is **part of the same generated Visual Studio solution** as the engine. The CMake build adds the editor projects via `include_external_msproject`, so opening `out\build\vs2026-x64\nuRCADE.slnx` shows:
 
-- `Engine/` — `WinRayCastPlayer`, `WinRayCastEngine`, `WinRayCastWinSupport`, `WinRayCastTests`
-- `Editor/` — `WinRaycastEditor.Core`, `WinRaycastEditor`, `WinRaycastEditor.Tests`
+- `Engine/` — `nuRCADEPlayer`, `nuRCADEEngine`, `nuRCADEWinSupport`, `nuRCADETests`
+- `Editor/` — `NuRcade.Editor.Core`, `NuRcade.Editor`, `NuRcade.Editor.Tests`
 - `PACKAGE` (top-level) — builds the installer via CPack
 
 Building the solution from Visual Studio (or `cmake --build`) compiles the engine in C++ and the editor in .NET 8 in one shot, and also runs `dotnet publish` for the editor into `<build>/editor_publish/` as a self-contained Win-x64 single-file `.exe`.
@@ -206,10 +214,10 @@ Building the solution from Visual Studio (or `cmake --build`) compiles the engin
 
 `include(CPack)` registers a `PACKAGE` target / `cpack` command that produces a redistributable bundle containing:
 
-- `WinRayCastPlayer.exe`
+- `nuRCADEPlayer.exe`
 - `res/worlds/demo_embedded/` (the self-contained world package: map/layer JSON, wall and sky textures, sprite metadata and bitmaps, weapon definitions, sound effects, background music, and HUD frames)
 - `res/examples/` (legacy/test fixtures kept separate from runnable world packages)
-- `editor/WinRaycastEditor.exe` (self-contained, no .NET runtime required on the target machine)
+- `editor/NuRcade.Editor.exe` (self-contained, no .NET runtime required on the target machine)
 - `LICENSE.txt`
 
 The two configured generators are `NSIS` (Windows installer `.exe`) and `ZIP` (portable archive).
@@ -239,8 +247,8 @@ cpack --config out\build\vs2026-x64\CPackConfig.cmake -C Release
 Equivalently, in Visual Studio: build the `PACKAGE` project under the top-level CMake folder. The resulting artifacts land next to the solution:
 
 ```text
-out\build\vs2026-x64\WinRayCast-1.2.0-win-x64-setup.exe
-out\build\vs2026-x64\WinRayCast-1.2.0-win-x64-setup.zip
+out\build\vs2026-x64\nuRCADE-1.2.0-win-x64-setup.exe
+out\build\vs2026-x64\nuRCADE-1.2.0-win-x64-setup.zip
 ```
 
-The NSIS installer registers an uninstaller and three Start-menu shortcuts: **WinRayCast Player**, **WinRayCast Player (demo world)**, and **WinRaycast Editor**.
+The NSIS installer registers an uninstaller and three Start-menu shortcuts: **nuRCADE Player**, **nuRCADE Player (demo world)**, and **nuRCADE Editor**.

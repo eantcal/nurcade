@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/NuRcade.Editor.Core/NuRcade.Editor.Core.csproj" />
+    <Project Path="src/NuRcade.Editor.Tests/NuRcade.Editor.Tests.csproj" />
+    <Project Path="src/NuRcade.Editor/NuRcade.Editor.csproj" />
+  </Folder>
+</Solution>
