@@ -68,9 +68,9 @@ nuRCADE began life as the demo accompanying the 2006 article and is now a small 
 
 The guiding constraint has not changed: the renderer should remain small enough to read in an afternoon, while the data model becomes rich enough to describe a small world rather than a numeric maze. Whenever a new feature threatened either property, the design was reconsidered before merging.
 
-![Player weapons and runtime HUD](../../ScreenShots/04.png)
+![Player weapons and runtime HUD](../../screenshots/04.png)
 
-![Open-sky courtyard rendered by the ray caster](../../ScreenShots/06.png)
+![Open-sky courtyard rendered by the ray caster](../../screenshots/06.png)
 
 ![Occupancy grid and resulting wall slices](figures/01-occupancy-grid.svg)
 

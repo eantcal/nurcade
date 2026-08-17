@@ -52,17 +52,17 @@ What started as a single-frame rendering demo has grown into a small but complet
 
 These screenshots show the current demo world, weapons, HUD, minimap/key status, sprites, wall spans, floor/ceiling projection, and open-sky areas.
 
-![Armed player in the laboratory](ScreenShots/01.png)
+![Armed player in the laboratory](screenshots/01.png)
 
-![Armed player in the library](ScreenShots/02.png)
+![Armed player in the library](screenshots/02.png)
 
-![Armed player in the blue vault](ScreenShots/03.png)
+![Armed player in the blue vault](screenshots/03.png)
 
-![HUD with minimap and keys](ScreenShots/04.png)
+![HUD with minimap and keys](screenshots/04.png)
 
-![Library minimap and keys](ScreenShots/05.png)
+![Library minimap and keys](screenshots/05.png)
 
-![Open-sky courtyard with minimap and keys](ScreenShots/06.png)
+![Open-sky courtyard with minimap and keys](screenshots/06.png)
 
 
 ## Dive into the Code
